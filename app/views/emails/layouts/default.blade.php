@@ -63,7 +63,7 @@
 
 
                 <table style="background-color:#fff;color:#333;margin:10px 0 10px 0;" width="100%">
-                    @include($template)
+                    @include($_template)
                 </table>
 
                 <table class="grey-box" width="100%">

@@ -30,7 +30,7 @@ abstract class SwiftMailerAbstract implements MailerInterface {
     {
         $this->to_data = $to_data;
         $this->body_data = $body_data;
-        $this->body_data['template'] = $this->template;
+        $this->body_data['_template'] = $this->template;
     }
 
     /**
@@ -59,19 +59,48 @@ abstract class SwiftMailerAbstract implements MailerInterface {
             foreach($this->attachments as $a) {
                 $message->attach($a['path'], $a['options']);
             }
-
-            return true;
         });
+
+        return true;
     }
 
 
     /**
-     * Sets Subject
+     * Set Email Layout
+     *
+     * @param $view
+     * @return \NewProject\Services\Mailer\SwiftMailerAbstract
+     */
+    public function setLayout($view)
+    {
+        $this->layout = $view;
+
+        return $this;
+    }
+
+
+    /**
+     * Set Email Template
+     *
+     * @param $view
+     * @return \NewProject\Services\Mailer\SwiftMailerAbstract
+     */
+    public function setTemplate($view)
+    {
+        $this->body_data['_template'] = $view;
+
+        return $this;
+    }
+
+
+    /**
+     * Set Subject
      *
      * @param $subject
      * @return \NewProject\Services\Mailer\SwiftMailerAbstract
      */
-    public function subject($subject) {
+    public function subject($subject)
+    {
         $this->subject = $subject;
 
         return $this;

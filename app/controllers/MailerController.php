@@ -9,8 +9,12 @@ class MailerController extends BaseController {
         $data['first_name'] = 'John';
         $data['last_name'] = 'Doe';
 
-        $mailer = new CustomerWelcomeEmail('emitz13@gmail.com', $data);
-        $mailer->subject('Override Subject')->bcc('emitz13@gmail.com')->attach(base_path().'/public/images/pdf-test.pdf');
+        $mailer = new CustomerWelcomeEmail('test@test.com', $data);
+        $mailer->subject('New Subject')
+               ->setTemplate('emails.customer.alert')
+               ->cc('test1@test.com')
+               ->bcc('test2@test.com')
+               ->attach(base_path().'/public/images/pdf-test.pdf');
         $mailer->send();
 
         echo 'Mail Sent';

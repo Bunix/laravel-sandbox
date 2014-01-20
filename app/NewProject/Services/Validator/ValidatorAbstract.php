@@ -1,4 +1,4 @@
-<?php namespace NewProject\Validator;
+<?php namespace NewProject\Services\Validator;
 
 use Illuminate\Support\MessageBag as MessageBag;
 

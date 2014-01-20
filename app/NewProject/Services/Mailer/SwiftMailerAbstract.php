@@ -22,6 +22,9 @@ abstract class SwiftMailerAbstract implements MailerInterface {
 
     protected $attachments = array();
 
+    protected $pretend = false;
+
+
     /**
     * @params array $input
     *
@@ -40,9 +43,13 @@ abstract class SwiftMailerAbstract implements MailerInterface {
     */
     public function send()
     {
+
+        // Set pretend value
+        \Mail::pretend($this->pretend);
+
         \Mail::send($this->layout, $this->body_data, function($message)
         {
-            // Set to
+            // Set To and Subject
             $message->to($this->to_data)->subject($this->subject);
 
             // Set all CC
@@ -60,6 +67,9 @@ abstract class SwiftMailerAbstract implements MailerInterface {
                 $message->attach($a['path'], $a['options']);
             }
         });
+
+        // Turn pretend back to global config after send
+        \Mail::pretend(\Config::get('mail.pretend'));
 
         return true;
     }
@@ -141,10 +151,23 @@ abstract class SwiftMailerAbstract implements MailerInterface {
      */
     public function attach($pathToFile, $options = array())
     {
-       $attachment['path'] =  $pathToFile;
+       $attachment['path'] = base_path().$pathToFile;
        $attachment['options'] = $options;
 
        array_push($this->attachments, $attachment);
+
+       return $this;
+    }
+
+    /**
+     * Use Laravel pretend method and send mail to log file instead
+     *
+     * @param bool $value
+     * @return \NewProject\Services\Mailer\SwiftMailerAbstract
+     */
+    public function pretend($value = true)
+    {
+       $this->pretend = $value;
 
        return $this;
     }

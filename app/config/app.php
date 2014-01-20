@@ -124,6 +124,7 @@ return array(
 
         // Application Providers
         'NewProject\Admin\Services\AdminServiceProvider',
+        'NewProject\Repositories\RepositoryServiceProvider',
         'NewProject\Services\ApplicationServiceProvider',
         'NewProject\Services\Billing\BillingServiceProvider',
         'NewProject\Services\Mailer\MailerServiceProvider',

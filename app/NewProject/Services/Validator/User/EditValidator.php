@@ -1,6 +1,6 @@
-<?php namespace NewProject\Validator\User;
+<?php namespace NewProject\Services\Validator\User;
 
-use NewProject\Validator\ValidatorAbstract;
+use NewProject\Services\Validator\ValidatorAbstract;
 
 class EditValidator extends ValidatorAbstract {
 

@@ -1,6 +1,6 @@
-<?php namespace NewProject\Validator\Auth;
+<?php namespace NewProject\Services\Validator\Auth;
 
-use NewProject\Validator\ValidatorAbstract;
+use NewProject\Services\Validator\ValidatorAbstract;
 
 class AdminValidator extends ValidatorAbstract {
 

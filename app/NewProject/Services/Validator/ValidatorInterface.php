@@ -1,4 +1,4 @@
-<?php namespace NewProject\Validator;
+<?php namespace NewProject\Services\Validator;
 
 interface ValidatorInterface {
 

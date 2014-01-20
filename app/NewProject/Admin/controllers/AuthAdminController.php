@@ -2,7 +2,7 @@
 
 use NewProject\Repositories\User\UserRepositoryInterface as UserRepositoryInterface;
 use NewProject\Repositories\Admin\AdminRepositoryInterface as AdminRepositoryInterface;
-use NewProject\Validator\Auth\AdminValidator;
+use NewProject\Services\Validator\Auth\AdminValidator;
 
 class AuthAdminController extends BaseController {
 

@@ -1,7 +1,7 @@
 <?php
 
-use NewProject\Repositories\User\UserRepositoryInterface as UserRepositoryInterface;
-use NewProject\Validator\User\EditValidator;
+use NewProject\Repositories\User\UserRepositoryInterface;
+use NewProject\Services\Validator\User\EditValidator;
 
 class UserAPIController extends BaseController {
 
@@ -41,7 +41,7 @@ class UserAPIController extends BaseController {
      */
     public function show($id, $orFail = true)
     {
-        return $this->repository->findById($id, $orFail, Input::get('include') ?: []);
+        return $this->repository->findById($id);
     }
 
     /**
@@ -60,7 +60,7 @@ class UserAPIController extends BaseController {
 
             return Response::json(array(
                 'error' => false,
-                'users' => $this->repository->toArray()),
+                'users' => $user),
                 200
             );            
         }
@@ -76,6 +76,7 @@ class UserAPIController extends BaseController {
     public function update($id)
     {
         $input = array_except(Input::all(), '_method');
+
         if($this->validator->passes())
         {
             $user = $this->repository->findById($id);
@@ -83,7 +84,7 @@ class UserAPIController extends BaseController {
 
             return Response::json(array(
                 'error' => false,
-                'users' => $this->repository->toArray()),
+                'users' => $user),
                 200
             );            
         }

@@ -120,7 +120,6 @@ return array(
         'Illuminate\Workbench\WorkbenchServiceProvider',
 
         // Packages
-        'Way\Generators\GeneratorsServiceProvider',
 
         // Application Providers
         'NewProject\Admin\Services\AdminServiceProvider',

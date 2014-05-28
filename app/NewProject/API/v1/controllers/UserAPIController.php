@@ -36,7 +36,8 @@ class UserAPIController extends BaseController {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
+     * @param bool $orFail
      * @return Response
      */
     public function show($id, $orFail = true)

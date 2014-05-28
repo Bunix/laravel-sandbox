@@ -21,7 +21,8 @@ class AdminRepositoryEloquent extends EloquentRepositoryAbstract implements Admi
     *
     * @return Collection
     */
-    public function getFullNameAttribute() {
+    public function getFullNameAttribute()
+    {
         return $this->first_name.' '.$this->last_name;
     }
 

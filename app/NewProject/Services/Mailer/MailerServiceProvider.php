@@ -12,7 +12,6 @@ class MailerServiceProvider extends ServiceProvider {
     public function register()
     {
         $app = $this->app;
-
     }
 
 }

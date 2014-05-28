@@ -16,7 +16,7 @@ abstract class ValidatorAbstract implements ValidatorInterface {
 
     /**
      * @param array $input
-     *
+     * @param \Illuminate\Support\MessageBag $bag
      */
     public function __construct($input = NULL, MessageBag $bag)
     {
@@ -56,6 +56,8 @@ abstract class ValidatorAbstract implements ValidatorInterface {
     /**
      * Add new error.
      *
+     * @param $key
+     * @param $message
      * @return MessageBag
      */
     public function addError($key, $message)

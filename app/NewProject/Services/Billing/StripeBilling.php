@@ -7,7 +7,8 @@ class StripeBilling implements BillingInterface {
      *
      * @return string
      */
-    public function display() {
+    public function display()
+    {
         return 'Stripe';
     }
 

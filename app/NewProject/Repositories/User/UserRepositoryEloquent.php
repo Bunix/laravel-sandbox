@@ -19,7 +19,8 @@ class UserRepositoryEloquent extends EloquentRepositoryAbstract implements UserR
     *
     * @return Collection
     */
-    public function getFullNameAttribute() {
+    public function getFullNameAttribute()
+    {
         return $this->first_name.' '.$this->last_name;
     }
 

@@ -20,6 +20,8 @@ interface ValidatorInterface {
     /**
      * Add new error.
      *
+     * @param $key
+     * @param $message
      * @return MessageBag
      */
     public function addError($key, $message);

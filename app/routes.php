@@ -11,17 +11,18 @@
 |
 */
 
-// Index Route
-Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
 
-Route::get('/mailer', array('as' => 'home', 'uses' => 'MailerController@index'));
-
-Route::get('/billing', array('as' => 'home', 'uses' => 'BillingController@index'));
-
+// Test Routes
 Route::get('test', function()
 {
     dd(App::environment());
 });
+
+//  Frontend Routes
+Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
+Route::controller('mailer', 'BillingController');
+Route::controller('billing', 'BillingController');
+
 
 // Admin Routes
 Route::group(array('prefix' => 'admin'), function()
@@ -35,15 +36,6 @@ Route::group(array('prefix' => 'admin'), function()
         // Logout Route
         Route::any('logout', array('as' => 'adminlogout', 'uses' => 'AuthAdminController@adminLogout'));
 
-        // Restful Routes
-        Route::resource('users', 'UserAdminController');
-
-        // User Routes
-        Route::get('users/data-feed', array('uses' => 'UserAdminController@dataFeed'));
-        Route::post('users/delete', array('uses' => 'UserAdminController@delete'));
-        Route::post('users/change-status', array('uses' => 'UserAdminController@changeStatus'));
-        Route::post('users/resend-activation', array('uses' => 'UserAdminController@resendActivation'));
-        Route::post('users/password-reset', array('uses' => 'UserAdminController@passwordReset'));
     });
 });
 

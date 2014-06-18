@@ -20,7 +20,7 @@ Route::get('test', function()
 
 //  Frontend Routes
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
-Route::controller('mailer', 'BillingController');
+Route::controller('mailer', 'MailerController');
 Route::controller('billing', 'BillingController');
 
 

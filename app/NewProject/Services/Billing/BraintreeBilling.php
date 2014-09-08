@@ -1,6 +1,8 @@
-<?php namespace NewProject\Services\Billing;
+<?php
+namespace NewProject\Services\Billing;
 
-class BraintreeBilling implements BillingInterface {
+class BraintreeBilling implements BillingInterface
+{
 
     /**
      * Display Billing name

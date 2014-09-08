@@ -1,8 +1,10 @@
-<?php namespace NewProject\Repositories;
+<?php
+namespace NewProject\Repositories;
 
 use Illuminate\Support\ServiceProvider;
 
-class RepositoryServiceProvider extends ServiceProvider {
+class RepositoryServiceProvider extends ServiceProvider
+{
 
     /**
      * Register the binding

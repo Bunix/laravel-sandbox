@@ -4,7 +4,8 @@ use NewProject\Repositories\User\UserRepositoryInterface as UserRepositoryInterf
 use NewProject\Repositories\Admin\AdminRepositoryInterface as AdminRepositoryInterface;
 use NewProject\Services\Validator\Auth\AdminValidator;
 
-class AuthAdminController extends BaseController {
+class AuthAdminController extends BaseController
+{
 
     protected $user_repo;
     protected $admin_repo;

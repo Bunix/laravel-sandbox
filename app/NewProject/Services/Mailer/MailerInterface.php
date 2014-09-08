@@ -1,15 +1,14 @@
-<?php namespace NewProject\Services\Mailer;
+<?php
+namespace NewProject\Services\Mailer;
 
-interface MailerInterface {
-
-
+interface MailerInterface
+{
     /**
     * Sends mail
     *
     * @return boolean
     */
     public function send();
-
 
     /**
      * Set Email Layout
@@ -18,7 +17,6 @@ interface MailerInterface {
      * @return object
      */
     public function setLayout($view);
-
 
     /**
      * Set Email Template

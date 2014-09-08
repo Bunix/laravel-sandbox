@@ -1,6 +1,8 @@
-<?php namespace NewProject\Repositories\Admin;
+<?php
+namespace NewProject\Repositories\Admin;
 
-interface AdminRepositoryInterface  {
+interface AdminRepositoryInterface
+{
 
    /*
    * Full Name Attribute Accessor.

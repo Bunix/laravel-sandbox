@@ -1,8 +1,8 @@
-<?php namespace NewProject\Repositories;
+<?php
+namespace NewProject\Repositories;
 
-interface RepositoryInterface  {
-
-
+interface RepositoryInterface
+{
     /*
      * Find set of repo objects.
      *

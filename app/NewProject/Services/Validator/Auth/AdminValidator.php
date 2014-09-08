@@ -1,8 +1,10 @@
-<?php namespace NewProject\Services\Validator\Auth;
+<?php
+namespace NewProject\Services\Validator\Auth;
 
 use NewProject\Services\Validator\ValidatorAbstract;
 
-class AdminValidator extends ValidatorAbstract {
+class AdminValidator extends ValidatorAbstract
+{
 
     /**
     * Validation rules

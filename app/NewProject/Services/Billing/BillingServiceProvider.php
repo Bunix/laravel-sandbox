@@ -1,8 +1,10 @@
-<?php namespace NewProject\Services\Billing;
+<?php
+namespace NewProject\Services\Billing;
 
 use Illuminate\Support\ServiceProvider;
 
-class BillingServiceProvider extends ServiceProvider {
+class BillingServiceProvider extends ServiceProvider
+{
 
     /**
      * Register the binding

@@ -1,6 +1,8 @@
-<?php namespace NewProject\Services\Billing;
+<?php
+namespace NewProject\Services\Billing;
 
-class AuthorizeBilling implements BillingInterface {
+class AuthorizeBilling implements BillingInterface
+{
 
     /**
      * Display Billing name

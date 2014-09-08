@@ -1,4 +1,5 @@
-<?php namespace NewProject\Repositories;
+<?php
+namespace NewProject\Repositories;
 
 use Eloquent;
 
@@ -6,7 +7,8 @@ use Eloquent;
  * This class defines Eloquent methods
  */
 
-abstract class EloquentRepositoryAbstract extends Eloquent implements RepositoryInterface {
+abstract class EloquentRepositoryAbstract extends Eloquent implements RepositoryInterface
+{
 
     protected $guarded = array();
 

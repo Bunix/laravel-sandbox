@@ -1,6 +1,8 @@
-<?php namespace NewProject\Repositories\User;
+<?php
+namespace NewProject\Repositories\User;
 
-interface UserRepositoryInterface  {
+interface UserRepositoryInterface
+{
 
     /*
    * Full Name Attribute Accessor.

@@ -1,6 +1,8 @@
-<?php namespace NewProject\Services\Billing;
+<?php
+namespace NewProject\Services\Billing;
 
-interface BillingInterface {
+interface BillingInterface
+{
 
     /**
     * Display Billing name

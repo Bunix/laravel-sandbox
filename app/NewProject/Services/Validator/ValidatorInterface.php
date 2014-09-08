@@ -1,6 +1,8 @@
-<?php namespace NewProject\Services\Validator;
+<?php
+namespace NewProject\Services\Validator;
 
-interface ValidatorInterface {
+interface ValidatorInterface
+{
 
 
     /**

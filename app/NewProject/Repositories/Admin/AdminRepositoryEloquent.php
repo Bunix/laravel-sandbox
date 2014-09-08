@@ -1,4 +1,5 @@
-<?php namespace NewProject\Repositories\Admin;
+<?php
+namespace NewProject\Repositories\Admin;
 
 use NewProject\Repositories\EloquentRepositoryAbstract;
 use Illuminate\Auth\UserInterface;
@@ -8,7 +9,8 @@ use Illuminate\Auth\Reminders\RemindableInterface;
  * This class is the Eloquent Implementation of the User Repository
  */
 
-class AdminRepositoryEloquent extends EloquentRepositoryAbstract implements AdminRepositoryInterface, UserInterface, RemindableInterface {
+class AdminRepositoryEloquent extends EloquentRepositoryAbstract implements AdminRepositoryInterface, UserInterface, RemindableInterface
+{
 
     protected $table = 'admin';
 

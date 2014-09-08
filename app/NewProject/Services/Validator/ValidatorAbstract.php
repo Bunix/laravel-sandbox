@@ -1,4 +1,5 @@
-<?php namespace NewProject\Services\Validator;
+<?php
+namespace NewProject\Services\Validator;
 
 use Illuminate\Support\MessageBag as MessageBag;
 
@@ -6,7 +7,8 @@ use Illuminate\Support\MessageBag as MessageBag;
  * This class defines abstract Validator methods
  */
 
-abstract class ValidatorAbstract implements ValidatorInterface {
+abstract class ValidatorAbstract implements ValidatorInterface
+{
 
     protected $validator;
 

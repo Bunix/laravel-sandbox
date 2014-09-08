@@ -1,8 +1,10 @@
-<?php namespace NewProject\Services\Validator;
+<?php
+namespace NewProject\Services\Validator;
 
 use Illuminate\Support\ServiceProvider;
 
-class ValidatorServiceProvider extends ServiceProvider {
+class ValidatorServiceProvider extends ServiceProvider
+{
 
     /**
      * Register the binding

@@ -3,7 +3,8 @@
 use NewProject\Repositories\User\UserRepositoryInterface;
 use NewProject\Services\Validator\User\EditValidator;
 
-class UserAPIController extends BaseController {
+class UserAPIController extends BaseController
+{
 
     /**
      * User Repository

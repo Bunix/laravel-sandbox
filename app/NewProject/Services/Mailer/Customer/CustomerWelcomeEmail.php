@@ -1,8 +1,10 @@
-<?php namespace NewProject\Services\Mailer\Customer;
+<?php
+namespace NewProject\Services\Mailer\Customer;
 
 use NewProject\Services\Mailer\SwiftMailerAbstract;
 
-class CustomerWelcomeEmail extends SwiftMailerAbstract {
+class CustomerWelcomeEmail extends SwiftMailerAbstract
+{
 
     protected $template = 'emails.customer.welcome';
 

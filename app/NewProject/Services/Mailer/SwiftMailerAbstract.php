@@ -1,10 +1,12 @@
-<?php namespace NewProject\Services\Mailer;
+<?php
+namespace NewProject\Services\Mailer;
 
 /*
  * This class defines abstract Mailer methods
  */
 
-abstract class SwiftMailerAbstract implements MailerInterface {
+abstract class SwiftMailerAbstract implements MailerInterface
+{
 
     protected $layout = 'emails.layouts.default';
 

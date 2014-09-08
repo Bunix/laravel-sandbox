@@ -1,8 +1,10 @@
-<?php namespace NewProject\Services\Mailer;
+<?php
+namespace NewProject\Services\Mailer;
 
 use Illuminate\Support\ServiceProvider;
 
-class MailerServiceProvider extends ServiceProvider {
+class MailerServiceProvider extends ServiceProvider
+{
 
     /**
      * Register the binding

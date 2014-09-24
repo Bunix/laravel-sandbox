@@ -1,4 +1,5 @@
 laravel-sandbox
 ===============
 
-Laravel 4.1 Sample Application
+Sample Laravel 5.0 application
+

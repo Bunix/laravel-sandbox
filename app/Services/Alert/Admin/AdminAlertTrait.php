@@ -1,21 +1,20 @@
 <?php
-namespace App\Services\Alert\App;
+namespace App\Services\Alert\Admin;
 
 trait AppAlertTrait
 {
 
     /**
-     * Webops Alert
+     * Admin Alert
      *
      * @param $subject
      * @param $message
      * @param null $alert_level
-     * @param int $add_it_dept
      * @param null $contact
      */
-    private function _webopsAlert($subject, $message, $alert_level=null, $add_it_dept=0, $contact=null)
+    private function _adminAlert($subject, $message, $alert_level=null, $contact=null)
     {
-        $alert = \App::make('WebopsAlert');
-        $alert->alert($subject, $message, $alert_level,$add_it_dept, $contact);
+        $alert = \App::make('AdminAlert');
+        $alert->alert($subject, $message, $alert_level, $contact);
     }
 }

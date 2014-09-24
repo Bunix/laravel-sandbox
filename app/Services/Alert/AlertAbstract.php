@@ -17,7 +17,6 @@ abstract class AlertAbstract
     // Alert Properties
     protected $_alert_email;
     protected $_alert_level;
-    protected $_it_department_email;
     protected $_subject_header;
 
 
@@ -27,7 +26,7 @@ abstract class AlertAbstract
      */
     public function __construct()
     {
-        $this->_it_department_email = \Config::get('alert.emails.it_department');
+
     }
 
     /**
@@ -36,11 +35,10 @@ abstract class AlertAbstract
      * @param $subject
      * @param $message
      * @param $alert_level
-     * @param $add_it_dept
      * @param $contact
      * @return mixed
      */
-    abstract public function alert($subject, $message, $alert_level, $add_it_dept, $contact);
+    abstract public function alert($subject, $message, $alert_level, $contact);
 
     /**
      * Send Alert Email
@@ -48,11 +46,10 @@ abstract class AlertAbstract
      * @param $subject
      * @param $message
      * @param null $alert_level
-     * @param int $add_it_dept
      * @param null $email
      * @return mixed
      */
-    protected function emailAlert($subject, $message, $alert_level=null, $add_it_dept=0, $email=null)
+    protected function emailAlert($subject, $message, $alert_level=null, $email=null)
     {
         // Check for optional email override
         if(!is_null($email))
@@ -64,10 +61,6 @@ abstract class AlertAbstract
 
         // Set mailer to
         $this->_mailer->to( $this->_alert_email);
-
-        // Add IT Dept to email if set
-        if($add_it_dept)
-            $this->_mailer->to( $this->_it_department_email);
 
         // Finish mail build and send
         $this->_mailer->subject($this->_subject_header.$this->_alert_level.': '.$subject)->setBodyData($message)->send();

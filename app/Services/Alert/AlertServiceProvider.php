@@ -1,7 +1,7 @@
 <?php namespace App\Services\Alert;
 
 use Illuminate\Support\ServiceProvider;
-use App\Services\Alert\App\WebopsAlert;
+use App\Services\Alert\Admin\AdminAlert;
 
 class AlertServiceProvider extends ServiceProvider
 {
@@ -15,11 +15,11 @@ class AlertServiceProvider extends ServiceProvider
     {
         $app = $this->app;
 
-        /**** Webops Alert Binding ***/
-        $app->bind('WebopsAlert', function()
+        /**** Admin Alert Binding ***/
+        $app->bind('AdminAlert', function()
         {
             $alert_mailer = \App::make('App\Services\Mailer\Alert\AlertEmail');
-            return new WebopsAlert($alert_mailer);
+            return new AdminAlert($alert_mailer);
         });
     }
 

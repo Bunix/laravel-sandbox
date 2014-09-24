@@ -21,9 +21,9 @@ class AdminAlert extends AlertAbstract implements AlertInterface
     {
         // Set properties
         $this->_mailer = $mailer;
-        $this->_alert_email = \Config::get('alert.type.webops.email');
-        $this->_alert_level = \Config::get('alert.type.webops.level');
-        $this->_subject_header = \Config::get('alert.type.webops.subject.header');
+        $this->_alert_email = \Config::get('alert.type.admin.email');
+        $this->_alert_level = \Config::get('alert.type.admin.level');
+        $this->_subject_header = \Config::get('alert.type.admin.subject.header');
 
         parent::__construct();
     }
@@ -37,13 +37,12 @@ class AdminAlert extends AlertAbstract implements AlertInterface
      * @param $subject
      * @param $message
      * @param null $alert_level
-     * @param int $add_it_dept
      * @param null $contact
      * @return mixed
      */
-    public function alert($subject, $message, $alert_level=null, $add_it_dept=0, $contact=null)
+    public function alert($subject, $message, $alert_level=null, $contact=null)
     {
-        parent::emailAlert($subject, $message, $alert_level, $add_it_dept, $contact);
+        parent::emailAlert($subject, $message, $alert_level, $contact);
     }
 
 }

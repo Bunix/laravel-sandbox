@@ -1,5 +1,4 @@
-<?php
-namespace App\Repositories\Admin;
+<?php namespace App\Repositories\Admin;
 
 interface AdminRepositoryInterface
 {

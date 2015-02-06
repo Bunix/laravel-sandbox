@@ -1,16 +1,15 @@
-<?php
-namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 
-use App\Services\Mailer\Customer\CustomerWelcomeEmail;
+use App\Services\Support\Mailer\Customer\CustomerWelcomeEmail;
 
 class MailerController extends Controller
 {
 
     public function index()
     {
-       /* $data['first_name'] = 'John';
+        $data['first_name'] = 'John';
         $data['last_name'] = 'Doe';
 
         $mailer = new CustomerWelcomeEmail('emitz13@gmail.com', $data);
@@ -23,7 +22,7 @@ class MailerController extends Controller
 
 
         echo 'Mail Sent';
-       */
+
     }
 
 }

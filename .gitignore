@@ -1,9 +1,6 @@
-.db
-.idea/*
-composer.phar
-composer.lock
-.DS_Store
-Thumbs
-/storage/*
-/tests/_log/*
+/.idea
 /vendor
+/node_modules
+.env
+composer.lock
+composer.phar

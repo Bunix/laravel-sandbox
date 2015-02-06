@@ -1,31 +1,36 @@
-<?php
-namespace App\Http\Controllers;
-
-use Illuminate\Routing\Controller;
+<?php namespace App\Http\Controllers;
 
 class HomeController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Default Home Controller
+	| Home Controller
 	|--------------------------------------------------------------------------
 	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@index');
+	| This controller renders your application's "dashboard" for users that
+	| are authenticated. Of course, you are free to change or remove the
+	| controller as you wish. It is just here to get your app started!
 	|
 	*/
 
-    public function index()
-    {
-        return view('layouts.index');
-    }
+	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
 
-    public function aboutUs()
-    {
-        return view('pages.aboutus');
-    }
+	/**
+	 * Show the application dashboard to the user.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		return view('home');
+	}
 
 }

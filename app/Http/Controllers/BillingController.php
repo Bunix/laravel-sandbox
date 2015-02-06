@@ -1,8 +1,7 @@
-<?php
-namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use App\Services\Billing\BillingInterface as BillingInterface;
+use App\Services\Support\Billing\BillingInterface as BillingInterface;
 
 class BillingController extends Controller
 {

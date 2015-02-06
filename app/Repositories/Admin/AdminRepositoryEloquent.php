@@ -1,5 +1,4 @@
-<?php
-namespace App\Repositories\Admin;
+<?php namespace App\Repositories\Admin;
 
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\Reminders\RemindableTrait;

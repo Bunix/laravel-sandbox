@@ -1,5 +1,4 @@
-<?php
-namespace App\Repositories;
+<?php namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,18 +26,15 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
 
         $query = $this;
 
-        if($sort_column != null && $sort_dir != null)
-        {
+        if ($sort_column != null && $sort_dir != null) {
             $query = $query->orderBy($sort_column , $sort_dir);
         }
 
-        if($limit != null)
-        {
+        if ($limit != null) {
             $query = $query->take($limit);
         }
 
-        if(!empty($include))
-        {
+        if (!empty($include)) {
             $query = $query->with($include);
         }
 
@@ -49,7 +45,6 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
         $data->totalItems = $items->count();
 
         return $items;
-
     }
 
 
@@ -64,17 +59,13 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
 
         $query = $this;
 
-        if(!empty($include))
-        {
+        if(!empty($include)) {
             $query = $query->with($include);
         }
 
-        if($fail == true)
-        {
+        if($fail == true) {
             return $query->findOrFail($id);
-        }
-        else
-        {
+        } else {
             return $query->find($id);
         }
 
@@ -100,8 +91,6 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
     */
     public function createRow($input)
     {
-        // dd($input);
-        
         return $this->create($input);
     }
 
@@ -144,8 +133,7 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
      */
     public function getFormattedCreatedAttribute()
     {
-        if($this->offsetExists('created_at'))
-        {
+        if ($this->offsetExists('created_at')) {
             return date('m/d/Y g:i a', strtotime($this->getAttribute('created_at')));
         }
     }
@@ -157,8 +145,7 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
      */
     public function getFormattedModifiedAttribute()
     {
-        if($this->offsetExists('updated_at'))
-        {
+        if ($this->offsetExists('updated_at')) {
             return date('m/d/Y g:i a', strtotime($this->getAttribute('updated_at')));
         }
     }

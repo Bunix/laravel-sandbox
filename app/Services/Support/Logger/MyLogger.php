@@ -6,7 +6,7 @@ use Monolog\Handler\StreamHandler;
 
 /**
  * Class MyLogger
- * @package RightStart\Services\Logger
+ * @package App\Services\Logger
  *
  * Log Class to write general individual log files
  *

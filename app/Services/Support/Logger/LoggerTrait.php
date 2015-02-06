@@ -2,7 +2,7 @@
 
 /**
  * Class LoggerTrait
- * @package RightStart\Services\Logger
+ * @package App\Services\Logger
  *
  * Trait to add logging functionality to any class
  *

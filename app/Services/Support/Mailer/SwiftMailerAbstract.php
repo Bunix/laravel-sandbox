@@ -2,7 +2,7 @@
 
 /**
  * Class SwiftMailerAbstract
- * @package RightStart\Services\Mailer
+ * @package App\Services\Mailer
  *
  * This class defines abstract Swift Mailer methods
  *

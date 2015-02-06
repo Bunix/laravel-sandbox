@@ -1,18 +1,20 @@
 <?php namespace App\Repositories\Admin;
 
-use Illuminate\Auth\UserTrait;
-use Illuminate\Auth\Reminders\RemindableTrait;
-use Illuminate\Contracts\Auth\User as UserContract;
-use Illuminate\Contracts\Auth\Remindable as RemindableContract;
+
 use App\Repositories\EloquentRepositoryAbstract;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /*
  * This class is the Eloquent Implementation of the User Repository
  */
 
-class AdminRepositoryEloquent extends EloquentRepositoryAbstract implements AdminRepositoryInterface, UserContract, RemindableContract {
+class AdminRepositoryEloquent extends EloquentRepositoryAbstract implements AdminRepositoryInterface, AuthenticatableContract, CanResetPasswordContract
+{
 
-    use UserTrait, RemindableTrait;
+    use Authenticatable, CanResetPassword;
 
     protected $table = 'admin';
 

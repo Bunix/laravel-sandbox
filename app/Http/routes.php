@@ -33,6 +33,7 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 Route::controller('mailer', 'MailerController');
 Route::controller('billing', 'BillingController');
+Route::controller('test', 'TestController');
 
 
 /*

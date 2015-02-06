@@ -6,9 +6,9 @@ use App\Services\Support\Mailer\Alert\AlertEmail;
 
 /**
  * Class WebopsAlert
- * @package RightStart\Services\Support\Alert\Rightstart
+ * @package App\Services\Support\Alert\Type
  */
-class WebopsAlert extends AlertAbstract implements AlertInterface
+class WebopsAlert extends AlertAbstract
 {
 
     /**
@@ -36,13 +36,12 @@ class WebopsAlert extends AlertAbstract implements AlertInterface
      * @param $subject
      * @param $message
      * @param null $alert_level
-     * @param int $add_it_dept
-     * @param null $contact
+     * @param array $contacts
      * @return mixed
      */
-    public function alert($subject, $message, $alert_level=null, $add_it_dept=0, $contact=null)
+    public function alert($subject, $message, $alert_level=null, $contacts=[])
     {
-        parent::emailAlert($subject, $message, $alert_level, $add_it_dept, $contact);
+        parent::emailAlert($subject, $message, $alert_level, $contacts);
     }
 
 }

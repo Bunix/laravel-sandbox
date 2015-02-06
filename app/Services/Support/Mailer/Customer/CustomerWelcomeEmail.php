@@ -4,10 +4,7 @@ use App\Services\Support\Mailer\SwiftMailerAbstract;
 
 /**
  * Class CustomerWelcomeEmail
- * @package RightStart\Services\Mailer\Customer
- *
- * Customer Welcome Email
- *
+ * @package App\Services\Mailer\Customer
  */
 class CustomerWelcomeEmail extends SwiftMailerAbstract
 {

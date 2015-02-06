@@ -1,7 +1,8 @@
 <?php namespace App\Providers;
 
+use App\Services\Support\Mailer\Alert;
 use Illuminate\Support\ServiceProvider;
-use RightStart\Services\Support\Mailer\Alert;
+
 
 class MailerServiceProvider extends ServiceProvider
 {
@@ -18,7 +19,7 @@ class MailerServiceProvider extends ServiceProvider
         $app = $this->app;
 
         /**** Mailer Alert Email ***/
-        $app->bind('RightStart\Services\Support\Mailer\Alert\AlertEmail', function()
+        $app->bind('App\Services\Support\Mailer\Alert\AlertEmail', function()
         {
             return new Alert\AlertEmail();
         });

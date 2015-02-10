@@ -1,7 +1,6 @@
 <?php namespace App\Services\Support\Alert\Type;
 
 use App\Services\Support\Alert\AlertAbstract;
-use App\Services\Support\Alert\AlertInterface;
 use App\Services\Support\Mailer\Alert\AlertEmail;
 
 /**
@@ -36,10 +35,10 @@ class WebopsAlert extends AlertAbstract
      * @param $subject
      * @param $message
      * @param null $alert_level
-     * @param array $contacts
+     * @param null $contacts
      * @return mixed
      */
-    public function alert($subject, $message, $alert_level=null, $contacts=[])
+    public function alert($subject, $message, $alert_level=null, $contacts=null)
     {
         parent::emailAlert($subject, $message, $alert_level, $contacts);
     }

@@ -11,7 +11,8 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		//
+		// Add Global functions file
+		require_once app_path().'/functions.php';
 	}
 
 	/**
@@ -30,5 +31,7 @@ class AppServiceProvider extends ServiceProvider {
 			'App\Services\Registrar'
 		);
 	}
+
+
 
 }

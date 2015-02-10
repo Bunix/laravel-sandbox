@@ -31,7 +31,7 @@ class TestController extends Controller {
      */
     public function getIndex()
     {
-
+        echo 'Test Controller';
     }
 
 
@@ -42,8 +42,8 @@ class TestController extends Controller {
      */
     public function getAlert(WebopsAlert $alert_service)
     {
-       $alert_service->alert('Test Alert', 'This is a test alert', '');
-
+        $alert_service->alert('Test Alert', 'This is a test alert!');
+        pr('Alert Sent');
     }
 
     /**

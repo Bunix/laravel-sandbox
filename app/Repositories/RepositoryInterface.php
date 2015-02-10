@@ -2,8 +2,6 @@
 
 interface RepositoryInterface
 {
-
-
     /*
      * Find set of repo objects.
      *

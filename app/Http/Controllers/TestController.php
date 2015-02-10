@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Services\Support\Alert\Type\WebopsAlert as WebopsAlert;
+use App\Services\Support\Logger\MyLogger as MyLogger;
 
 class TestController extends Controller {
 
@@ -31,7 +32,7 @@ class TestController extends Controller {
      */
     public function getIndex()
     {
-        echo 'Test Controller';
+        er('Test Controller');
     }
 
 
@@ -43,15 +44,19 @@ class TestController extends Controller {
     public function getAlert(WebopsAlert $alert_service)
     {
         $alert_service->alert('Test Alert', 'This is a test alert!');
-        pr('Alert Sent');
+        er('Alert Sent');
     }
 
     /**
      *  Test Logger Service
+     * @param MyLogger $logger
      */
-    public function getLogger()
+    public function getLogger(MyLogger $logger)
     {
-
+        $logger->write('Test Info Log', 'Test Controller', 0);
+        $logger->write('Test Warning Log', 'Test Controller', 0, 'warning');
+        $logger->write('Test Error Log', 'Test Controller', 0, 'error');
+        er('Logs Written');
     }
 
 }

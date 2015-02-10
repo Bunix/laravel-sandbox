@@ -26,6 +26,10 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		\App::singleton('log_event_time', function(){
+			return time();
+		});
+
 		$this->app->bind(
 			'Illuminate\Contracts\Auth\Registrar',
 			'App\Services\Registrar'

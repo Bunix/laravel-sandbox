@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 abstract class EloquentRepositoryAbstract extends Model implements RepositoryInterface
 {
 
-    protected $guarded = array();
+    protected $guarded = ['id'];
 
     public $timestamps = true;
 
@@ -48,12 +48,12 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
     }
 
 
- /*
-  * Find repo object by id.
-  *
-  * @param $id
-  * @return object
-  */
+    /*
+     * Find repo object by id.
+     *
+     * @param $id
+     * @return object
+     */
     public function findById($id, $fail = false, $include = array())
     {
 
@@ -71,38 +71,60 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
 
     }
 
-   /*
-    * Find repo object by field.
-    *
-    * @param $field
-    * @param $value
-    * @return array
-    */
+    /*
+     * Find repo object by field.
+     *
+     * @param $field
+     * @param $value
+     * @return array
+     */
     public function findByField($field, $value)
     {
         return $this->where($field, $value)->get();
     }
 
-   /*
-    * Create repo object.
-    *
-    * @param $input
-    * @return bool
-    */
+    /*
+     * Create repo object.
+     *
+     * @param $input
+     * @return bool
+     */
     public function createRow($input)
     {
         return $this->create($input);
     }
 
-   /*
-    * Update repo object.
+    /*
+     * Create repo object only if doesn't exist.
+     *
+     * @param $input
+     * @return bool
+     */
+    public function createRowOnlyIfNew($input)
+    {
+        return $this->firstOrCreate($input);
+    }
+
+    /*
+     * Update repo object.
+     *
+     * @param $input
+     * @return bool
+     */
+    public function updateRow($input)
+    {
+        return $this->update($input);
+    }
+
+    /*
+    * Update repo object or create object if row doesn't exist.
     *
     * @param $input
     * @return bool
     */
-    public function updateRow($input)
+    public function updateRowOrCreate($row_match_data, $input)
     {
-        return $this->update($input);
+        return $this->updateOrCreate($row_match_data, $input);
     }
 
     /*
@@ -113,7 +135,7 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
      */
     public function deleteRow($id)
     {
-       return $this->find($id)->delete();
+        return $this->destroy($id);
     }
 
     /*
@@ -149,5 +171,6 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
             return date('m/d/Y g:i a', strtotime($this->getAttribute('updated_at')));
         }
     }
+
 
 }

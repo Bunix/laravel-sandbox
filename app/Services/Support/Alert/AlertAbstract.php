@@ -27,8 +27,8 @@ abstract class AlertAbstract
      */
     public function __construct()
     {
-        $this->email_enabled = (bool) \Config::get('alert.enabled.email');
-        $this->text_enabled = (bool) \Config::get('alert.enabled.text');
+        $this->email_enabled = (bool) config('support.alert.enabled.email');
+        $this->text_enabled = (bool) config('support.alert.enabled.text');
     }
 
     /**
@@ -72,7 +72,7 @@ abstract class AlertAbstract
             $this->mailer->to($this->alert_email);
 
             // Finish mail build and send
-            $this->mailer->subject($this->subject_header . $this->alert_level . ': ' . $subject)->setBodyData($message)->send();
+            $this->mailer->subject($subject)->setBodyData($message)->send();
         }
 
         return true;

@@ -7,15 +7,15 @@
 
 return [
     'enabled' => [
-        'email' => env('ALERT_ENABLED_EMAIL'),
-        'text' => env('ALERT_ENABLED_TEXT'),
+        'email' => env('ALERT_ENABLED_EMAIL', true),
+        'text' => env('ALERT_ENABLED_TEXT', true),
     ],
     'type' => [
         'webops' => [
             'email' => env('ALERT_TYPE_WEBOPS_EMAIL'),
             'level' => 'Critical',
             'subject' => [
-                'header' => '(MyApp) '
+                'header' => env('ALERT_TYPE_WEBOPS_SUBJECT_HEADER', '(MyApp)')
             ]
         ]
     ]

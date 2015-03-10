@@ -15,8 +15,14 @@
         </testsuite>
     </testsuites>
     <php>
+        <!-- Default Configs -->
         <env name="APP_ENV" value="testing"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
+        <env name="QUEUE_DRIVER" value="sync"/>
+        <!-- Support Configs -->
+        <env name="ALERT_ENABLED_EMAIL" value="false"/>
+        <env name="ALERT_ENABLED_TEXT" value="false"/>
+        <env name="LOGGER_ENABLED_ALL_LOGS" value="false"/>
     </php>
 </phpunit>

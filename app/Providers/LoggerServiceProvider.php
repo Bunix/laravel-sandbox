@@ -1,5 +1,6 @@
 <?php namespace App\Providers;
 
+use App\Services\Support\Logger;
 use Illuminate\Support\ServiceProvider;
 
 class LoggerServiceProvider extends ServiceProvider
@@ -14,9 +15,9 @@ class LoggerServiceProvider extends ServiceProvider
         $app = $this->app;
 
         /**** Logger Binding ***/
-        $app->bind('Logger', function()
+        $app->bind('logger', function()
         {
-            return new MyLogger();
+            return new Logger\MyLogger();
         });
     }
 

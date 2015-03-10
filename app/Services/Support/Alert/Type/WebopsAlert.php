@@ -19,9 +19,9 @@ class WebopsAlert extends AlertAbstract
     {
         // Set properties
         $this->mailer = $mailer;
-        $this->alert_email = \Config::get('alert.type.webops.email');
-        $this->alert_level = \Config::get('alert.type.webops.level');
-        $this->subject_header = \Config::get('alert.type.webops.subject.header');
+        $this->alert_email = config('support.alert.type.webops.email');
+        $this->alert_level = config('support.alert.type.webops.level');
+        $this->subject_header = config('support.alert.type.webops.subject.header');
 
         parent::__construct();
     }
@@ -40,7 +40,7 @@ class WebopsAlert extends AlertAbstract
      */
     public function alert($subject, $message, $alert_level=null, $contacts=null)
     {
-        parent::emailAlert($subject, $message, $alert_level, $contacts);
+        parent::emailAlert($this->subject_header .' '. $this->alert_level . ': ' . $subject, $message, $alert_level, $contacts);
     }
 
 }

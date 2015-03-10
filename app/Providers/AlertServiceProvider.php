@@ -1,12 +1,11 @@
 <?php namespace App\Providers;
 
+use App\Services\Support\Alert;
 use Illuminate\Support\ServiceProvider;
-use App\Services\Support\Alert\Type\WebopsAlert;
+
 
 class AlertServiceProvider extends ServiceProvider
 {
-    protected $defer = true;
-
     /**
      * Register the binding
      *
@@ -20,7 +19,7 @@ class AlertServiceProvider extends ServiceProvider
         $app->bind('WebopsAlert', function()
         {
             $alert_mailer = \App::make('App\Services\Support\Mailer\Alert\AlertEmail');
-            return new WebopsAlert($alert_mailer);
+            return new Alert\Type\WebopsAlert($alert_mailer);
         });
     }
 

@@ -1,5 +1,6 @@
 <?php namespace App\Providers;
 
+use App\Repositories;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -17,7 +18,7 @@ class RepositoryServiceProvider extends ServiceProvider
         /**** Admin Repository ***/
         $app->bind('AdminRepositoryEloquent', function()
         {
-            return new \App\Repositories\Admin\AdminRepositoryEloquent;
+            return new Repositories\Admin\AdminRepositoryEloquent;
         });
         // Choose Binding
         $app->bind('App\Repositories\Admin\AdminRepositoryInterface', 'AdminRepositoryEloquent');
@@ -27,7 +28,7 @@ class RepositoryServiceProvider extends ServiceProvider
         /**** User Repository ***/
         $app->bind('UserRepositoryEloquent', function()
         {
-            return new \App\Repositories\User\UserRepositoryEloquent;
+            return new Repositories\User\UserRepositoryEloquent;
         });
         // Choose Binding
         $app->bind('App\Repositories\User\UserRepositoryInterface', 'UserRepositoryEloquent');

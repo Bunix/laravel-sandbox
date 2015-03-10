@@ -20,10 +20,6 @@ trait LoggerTrait
      */
     protected function logInfo($message, $log_name=null)
     {
-        if (!$this->getAlert()) {
-            return false;
-        }
-
         try {
             if ($this->getServiceType() == 'support') {
                 \Logger::write($message, $this->getServiceName(), true, 'info', $log_name);
@@ -47,10 +43,6 @@ trait LoggerTrait
      */
     protected function logWarning($message, $log_name=null)
     {
-        if (!$this->getAlert()) {
-            return false;
-        }
-
         try {
             if ($this->getServiceType() == 'support') {
                 \Logger::write($message, $this->getServiceName(), true, 'warning', $log_name);
@@ -74,10 +66,6 @@ trait LoggerTrait
      */
     protected function logError($message, $log_name=null)
     {
-        if (!$this->getAlert()) {
-            return false;
-        }
-
         try {
             if ($this->getServiceType() == 'support') {
                 \Logger::write($message, $this->getServiceName(), true, 'error', $log_name);
@@ -144,9 +132,4 @@ trait LoggerTrait
         }
     }
 
-    private function getAlert()
-    {
-        $alertEnabled = \Config::get('alert.enabled');
-        return $alertEnabled;
-    }
 }

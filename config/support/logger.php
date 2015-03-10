@@ -7,7 +7,8 @@
 
 return [
     'enabled' => [
-        'global_error_log' => env('LOGGER_ENABLED_GLOBAL_ERROR_LOG')
+        'all_logs' => env('LOGGER_ENABLED_ALL_LOGS', true),
+        'global_error_log' => true
     ]
 ];
 

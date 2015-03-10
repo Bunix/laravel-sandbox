@@ -10,7 +10,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * This class is the Eloquent Implementation of the User Repository
  */
 
-class AdminRepositoryEloquent extends EloquentRepositoryAbstract implements AdminRepositoryInterface, AuthenticatableContract, CanResetPasswordContract
+class AdminsEloquent extends EloquentRepositoryAbstract implements AdminRepositoryInterface, AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;
 

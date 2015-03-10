@@ -9,6 +9,8 @@
  */
 class DataImportModelObserver
 {
+    private $print_enabled = true;
+
     /**
      * Created Event
      *
@@ -17,6 +19,8 @@ class DataImportModelObserver
     public function created($model)
     {
         session()->put('data_import_created_count', session()->get('data_import_created_count') + 1);
+
+        $this->printEvent($model);
     }
 
     /**
@@ -26,15 +30,9 @@ class DataImportModelObserver
      */
     public function updated($model)
     {
-        if ($model->getAttribute('sku')) {
-            xr('SKU: '.$model->getAttribute('sku'));
-        }
-
-        if ($model->getAttribute('magento_product_id')) {
-            xr('Entity ID: '.$model->getAttribute('magento_product_id'));
-        }
-
         session()->put('data_import_updated_count', session()->get('data_import_updated_count') + 1);
+
+        $this->printEvent($model);
     }
 
     /**
@@ -44,10 +42,23 @@ class DataImportModelObserver
      */
     public function deleted($model)
     {
-        if ($model->getAttribute('magento_product_id')) {
-            xr('Entity ID: '.$model->getAttribute('magento_product_id'));
-        }
-
         session()->put('data_import_deleted_count', session()->get('data_import_deleted_count') + 1);
+
+        $this->printEvent($model);
+    }
+
+
+    /**
+     * Print Out Model Event
+     *
+     * @param $model
+     */
+    private function printEvent($model)
+    {
+        if ($this->print_enabled) {
+            if ($model->getAttribute('id')) {
+                xr('ID#: ' . $model->getAttribute('id'));
+            }
+        }
     }
 }

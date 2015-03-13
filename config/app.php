@@ -145,6 +145,16 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+        /*
+         * Custom Service Providers...
+         */
+        'App\Providers\AlertServiceProvider',
+        'App\Providers\BillingServiceProvider',
+        'App\Providers\DataImporterServiceProvider',
+        'App\Providers\LoggerServiceProvider',
+        'App\Providers\MailerServiceProvider',
+        'App\Providers\RepositoryServiceProvider',
+        'App\Providers\ValidatorServiceProvider',
 	],
 
 	/*
@@ -192,6 +202,13 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+
+        // Packages Aliases
+        'Form'=> 'Illuminate\Html\FormFacade',
+        'HTML'=> 'Illuminate\Html\HtmlFacade',
+
+        // Custom Aliases
+        'Logger' => 'App\Facades\LoggerFacade'
 
 	],
 

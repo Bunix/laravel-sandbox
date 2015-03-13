@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Examples;
 
 use Illuminate\Routing\Controller;
 
@@ -6,6 +6,15 @@ use App\Services\Support\Mailer\Customer\CustomerWelcomeEmail;
 
 class MailerController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     */
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
 
     public function index()
     {

@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 
 class BillingServiceProvider extends ServiceProvider
 {
-
     /**
      * Register the binding
      *
@@ -20,24 +19,23 @@ class BillingServiceProvider extends ServiceProvider
         /**** Authorize Billing ***/
         $app->bind('AuthorizeBilling', function()
         {
-            return new AuthorizeBilling;
+            return new AuthorizeBilling();
         });
 
         /**** Braintree Billing ***/
         $app->bind('BraintreeBilling', function()
         {
-            return new BraintreeBilling;
+            return new BraintreeBilling();
         });
 
         /**** Stripe Billing ***/
         $app->bind('StripeBilling', function()
         {
-            return new StripeBilling;
+            return new StripeBilling();
         });
 
-
         // Choose Default Billing
-        $app->bind('App\Services\Support\Billing\BillingInterface', 'StripeBilling');
+        $app->bind('App\Services\Support\Billing\BillingInterface', 'BraintreeBilling');
 
     }
 

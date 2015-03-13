@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 class UserTableSeeder extends Seeder
 {
 
-    private $seed_number = 100;
+    private $seed_number = 200;
 
     public function run()
     {

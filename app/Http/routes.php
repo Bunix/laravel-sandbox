@@ -14,27 +14,50 @@
 /*
  * Development Routes
  */
-Route::get('test', function()
+
+// Environment Detection
+Route::get('env', function()
 {
 	dd(App::environment());
 });
 
-Route::get('info', function()
-{
-	phpinfo();
+// PHP Info
+Route::get('info', function() {
+    if (App::environment() != 'production') {
+        phpinfo();
+    }
 });
+
 
 /*
  * Frontend Routes
  */
 
 Route::get('/', 'WelcomeController@index');
-
 Route::get('home', 'HomeController@index');
-Route::controller('mailer', 'MailerController');
-Route::controller('billing', 'BillingController');
-Route::controller('test', 'TestController');
 
+
+Route::controllers([
+    'api-test' => 'Auth\AuthController',
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
+    'billing' => 'Examples\BillingController',
+    'mailer' => 'Examples\MailerController',
+    'test' => 'Examples\TestController'
+]);
+
+/*
+ *  API Routes
+ */
+Route::group(['prefix' => 'api'], function() {
+
+    Route::get('/user/search', array('uses' => 'API\V1\UserAPIController@search'));
+
+    Route::resources([
+        'user' => 'API\V1\UserAPIController'
+    ]);
+
+});
 
 /*
  *  Admin Routes
@@ -53,9 +76,3 @@ Route::group(array('prefix' => 'admin'), function()
 
 	});
 });
-
-
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);

@@ -23,7 +23,7 @@ abstract class ValidatorAbstract implements ValidatorInterface
      */
     public function __construct($input = NULL, MessageBag $bag)
     {
-        $this->input = $input ?: \Input::all();
+        $this->input = $input ?: \Request::all();
 
         $this->validator = \Validator::make($this->input, $this->rules, $this->messages);
         $this->errors = $bag;

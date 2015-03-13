@@ -1,5 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Examples;
 
+use Illuminate\Routing\Controller;
 use App\Services\Support\Alert\Type\WebopsAlert as WebopsAlert;
 use App\Services\Support\Logger\MyLogger as MyLogger;
 

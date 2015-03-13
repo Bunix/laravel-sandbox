@@ -131,7 +131,7 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
      * Delete repo object.
      *
      * @param $id
-     * @return bool
+     * return int
      */
     public function deleteRow($id)
     {

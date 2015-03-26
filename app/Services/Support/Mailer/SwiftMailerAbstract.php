@@ -10,43 +10,95 @@
 abstract class SwiftMailerAbstract implements MailerInterface
 {
 
+    /**
+     * Constant representing a variable that will hold the message data in email view if data is not an array.
+     *
+     */
+    const MESSAGE_VARIABLE = '_message';
+
+    /**
+     * Constant representing a variable that will hold the template path in email view.
+     */
+    const TEMPLATE_VARIABLE = '_template';
+
+    /**
+     * Email Layout View Path
+     *
+     * @var string
+     */
     protected $layout = 'emails.layouts.default';
 
-    protected $template;
+    /**
+     * Email Template View Path
+     *
+     * @var
+     */
+    protected $template = 'emails.templates.default';
 
+    /**
+     * Subject
+     *
+     * @var
+     */
     protected $subject;
 
+    /**
+     * To
+     *
+     * @var null
+     */
     protected $to_data;
 
-    protected $body_data;
+    /**
+     * Message Data
+     *
+     * @var
+     */
+    protected $message_data;
 
+    /**
+     * CC Addresses
+     *
+     * @var array
+     */
     protected $cc = [];
 
+    /**
+     * BCC Addresses
+     *
+     * @var array
+     */
     protected $bcc = [];
 
+    /**
+     * File Attachments
+     *
+     * @var array
+     */
     protected $attachments = [];
 
+    /**
+     * Pretend On/Off
+     *
+     * @var bool
+     */
     protected $pretend = false;
 
 
     /**
      * Swift Mailer Abstract Constructor
      *
-     * @param $to_data
-     * @param $body_data
+     * @param null $to_data
+     * @param null $message_data
      */
-    public function __construct($to_data=null, $body_data=null)
+    public function __construct($to_data = null, $message_data = null)
     {
         if (!is_null($to_data)) {
             $this->to_data = $to_data;
         }
 
-        if (!is_null($body_data)) {
-            if (!is_array($body_data)) {
-                $this->body_data['body'] = $body_data;
-            } else {
-                $this->body_data = $body_data;
-            }
+        if (!is_null($message_data)) {
+            $this->processMessageData($message_data);
         }
 
         $this->assignTemplate();
@@ -63,7 +115,7 @@ abstract class SwiftMailerAbstract implements MailerInterface
         // Set pretend value
         \Mail::pretend($this->pretend);
 
-        \Mail::send($this->layout, $this->body_data, function($message)
+        \Mail::send($this->layout, $this->message_data, function($message)
         {
             // Set To and Subject
             $message->to($this->to_data)->subject($this->subject);
@@ -95,7 +147,7 @@ abstract class SwiftMailerAbstract implements MailerInterface
      * Set Email Layout
      *
      * @param $view
-     * @return \App\Services\Support\Mailer\SwiftMailerAbstract
+     * @return SwiftMailerAbstract
      */
     public function setLayout($view)
     {
@@ -108,12 +160,14 @@ abstract class SwiftMailerAbstract implements MailerInterface
     /**
      * Set Email Template
      *
-     * @param $view
-     * @return \App\Services\Support\Mailer\SwiftMailerAbstract
+     * @param $template
+     * @return SwiftMailerAbstract
      */
-    public function setTemplate($view)
+    public function setTemplate($template)
     {
-        $this->body_data['_template'] = $view;
+        $this->template = $template;
+
+        $this->assignTemplate();
 
         return $this;
     }
@@ -123,7 +177,7 @@ abstract class SwiftMailerAbstract implements MailerInterface
      * Set To
      *
      * @param $to_data
-     * @return $this
+     * @return SwiftMailerAbstract
      */
     public function to($to_data)
     {
@@ -133,29 +187,24 @@ abstract class SwiftMailerAbstract implements MailerInterface
     }
 
     /**
-     * Set HTML body data
+     * Set Message data
      *
-     * @param $body_data
-     * @return $this
+     * @param $message_data
+     * @return SwiftMailerAbstract
      */
-    public function setBodyData($body_data)
+    public function setMessageData($message_data)
     {
-        if (!is_array($body_data)) {
-            $this->body_data['body'] = $body_data;
-        } else {
-            $this->body_data = $body_data;
-        }
-
-        $this->assignTemplate();
+        $this->processMessageData($message_data);
 
         return $this;
     }
+
 
     /**
      * Set Subject
      *
      * @param $subject
-     * @return \App\Services\Support\Mailer\SwiftMailerAbstract
+     * @return SwiftMailerAbstract
      */
     public function subject($subject)
     {
@@ -168,7 +217,7 @@ abstract class SwiftMailerAbstract implements MailerInterface
      * Adds a Carbon Copy(CC) address
      *
      * @param $address
-     * @return \App\Services\Support\Mailer\SwiftMailerAbstract
+     * @return SwiftMailerAbstract
      */
     public function cc($address)
     {
@@ -181,7 +230,7 @@ abstract class SwiftMailerAbstract implements MailerInterface
      * Adds a Blind Carbon Copy(BCC) address
      *
      * @param $address
-     * @return \App\Services\Support\Mailer\SwiftMailerAbstract
+     * @return SwiftMailerAbstract
      */
     public function bcc($address)
     {
@@ -195,7 +244,7 @@ abstract class SwiftMailerAbstract implements MailerInterface
      *
      * @param $pathToFile
      * @param array $options
-     * @return \App\Services\Support\Mailer\SwiftMailerAbstract
+     * @return SwiftMailerAbstract
      */
     public function attach($pathToFile, $options = array())
     {
@@ -211,7 +260,7 @@ abstract class SwiftMailerAbstract implements MailerInterface
      * Use Laravel pretend method and send mail to log file instead
      *
      * @param bool $value
-     * @return \App\Services\Support\Mailer\SwiftMailerAbstract
+     * @return SwiftMailerAbstract
      */
     public function pretend($value = true)
     {
@@ -226,7 +275,22 @@ abstract class SwiftMailerAbstract implements MailerInterface
      */
     private function assignTemplate()
     {
-        $this->body_data['_template'] = $this->template;
+        $this->message_data[SwiftMailerAbstract::TEMPLATE_VARIABLE] = $this->template;
     }
+
+    /**
+     * Process Message for passing to view
+     *
+     * @param $data
+     */
+    private function processMessageData($data)
+    {
+        if (!is_array($data)) {
+            $this->message_data[SwiftMailerAbstract::MESSAGE_VARIABLE] = $data;
+        } else {
+            $this->message_data = $data;
+        }
+    }
+
 
 }

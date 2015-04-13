@@ -1,6 +1,7 @@
 /.idea
 /vendor
 /node_modules
+/packages
 .env*
 composer.lock
 composer.phar

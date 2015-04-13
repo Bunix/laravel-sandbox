@@ -16,22 +16,19 @@ class MailerController extends Controller
         $this->middleware('guest');
     }
 
-    public function index()
+    public function getIndex(CustomerWelcomeEmail $welcome_email)
     {
-        $data['first_name'] = 'John';
-        $data['last_name'] = 'Doe';
+        $message_data['first_name'] = 'John';
+        $message_data['last_name'] = 'Doe';
 
-        $mailer = new CustomerWelcomeEmail('emitz13@gmail.com', $data);
-               $mailer->subject('New Subject')
-               ->setTemplate('emails.customer.alert')
-               ->cc('test1@test.com')
-               ->bcc('test2@test.com')
-               ->attach('/public/images/pdf-test.pdf')
-               ->send();
-
+        $welcome_email->setTemplate('emails.templates.customer.welcome')
+                ->subject('Welcome New Customer')
+               //->cc('test1@test.com')
+               //->bcc('test2@test.com')
+               //->attach('/public/pdf/pdf-test.pdf')
+               ->send('emitz13@gmail.com', $message_data);
 
         echo 'Mail Sent';
-
     }
 
 }

@@ -18,14 +18,13 @@ class CreateUsersTable extends Migration {
             $t->string('email')->unique();
             $t->string('password', 60);
             $t->rememberToken();
-            $t->string('first_name');
-            $t->string('last_name');
+            $t->string('first_name')->nullable();
+            $t->string('last_name')->nullable();
             //$t->string('phone_number', 10);
             $t->string('zip_code', 10)->nullable();
             $t->boolean('confirmed')->default(0);
             $t->timestamp('last_logged_in')->nullable();
             $t->timestamps();
-
 		});
 	}
 

@@ -72,7 +72,7 @@ abstract class AlertAbstract
             $this->mailer->to($this->alert_email);
 
             // Finish mail build and send
-            $this->mailer->subject($subject)->setBodyData($message)->send();
+            $this->mailer->subject($subject)->setMessageData($message)->send();
         }
 
         return true;

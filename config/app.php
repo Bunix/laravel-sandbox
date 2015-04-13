@@ -155,6 +155,11 @@ return [
         'App\Providers\MailerServiceProvider',
         'App\Providers\RepositoryServiceProvider',
         'App\Providers\ValidatorServiceProvider',
+
+        /*
+        * Package Service Providers
+        */
+        'CleanMailer\PackageServiceProvider',
 	],
 
 	/*

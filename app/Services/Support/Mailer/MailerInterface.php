@@ -1,5 +1,9 @@
 <?php namespace App\Services\Support\Mailer;
 
+/**
+ * Interface MailerInterface
+ * @package App\Services\Support\Mailer
+ */
 interface MailerInterface
 {
 
@@ -13,21 +17,29 @@ interface MailerInterface
     /**
      * Set Email Layout
      *
-     * @param $view
+     * @param $layout_path
      * @return object
      */
-    public function setLayout($view);
+    public function setLayout($layout_path);
 
     /**
      * Set Email Template
      *
-     * @param $view
+     * @param $template_path
      * @return object
      */
-    public function setTemplate($view);
+    public function setTemplate($template_path);
 
     /**
-     * Set Email Layout
+     * Set To Address
+     *
+     * @param $email_address
+     * @return mixed
+     */
+    public function to($email_address);
+
+    /**
+     * Set Email Subject
      *
      * @param $subject
      * @return object
@@ -49,6 +61,14 @@ interface MailerInterface
      * @return object
      */
     public function bcc($address);
+
+    /**
+     * Set Message Data
+     *
+     * @param $message_data
+     * @return mixed
+     */
+    public function setMessageData($message_data);
 
     /**
      * Attaches file to mail

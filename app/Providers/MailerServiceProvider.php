@@ -16,13 +16,13 @@ class MailerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $app = $this->app;
-
-        /**** Mailer Alert Email ***/
-        $app->bind('App\Services\Support\Mailer\Alert\AlertEmail', function()
-        {
-            return new Mailer\Alert\AlertEmail();
-        });
+//        $app = $this->app;
+//
+//        /**** Mailer Alert Email ***/
+//        $app->bind('App\Services\Support\Mailer\Alert\AlertEmail', function()
+//        {
+//            return new Mailer\Alert\AlertEmail();
+//        });
     }
 
 }

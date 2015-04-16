@@ -13,18 +13,136 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
 
     public $timestamps = true;
 
-    /*
+    /**
+     * Property to hold query while building
+     *
+     */
+    protected $query;
+
+
+    /**
+     * Repository Abstract Constructor
+     *
+     */
+    public function __construct()
+    {
+        $this->query = $this->newQuery();
+    }
+
+    /**
+     * Start Query Building
+     *
+     * @return $this
+     */
+    public function startQuery()
+    {
+        $this->query = $this->newQuery();
+
+        return $this;
+    }
+
+    /**
+     * Select Columns for Query
+     *
+     * @param array $columns
+     * @return $this
+     */
+    public function selectColumns(array $columns)
+    {
+        $this->query->select($columns);
+
+        return $this;
+    }
+
+    /**
+     *  Add Where Clause to Query
+     *
+     * @param $field
+     * @param $value
+     * @return $this
+     */
+    public function addWhere($field, $value)
+    {
+        $this->query->where($field, $value);
+
+        return $this;
+    }
+
+    /**
+     *  Add relations to query
+     *
+     * @param array $relations
+     * @return $this
+     */
+    public function addRelations(array $relations)
+    {
+        $this->query->with($relations);
+
+        return $this;
+    }
+
+
+    public function sort($sort_column, $sort_dir = null)
+    {
+        if (!is_null($sort_dir)) {
+            $this->query->orderBy($sort_column , $sort_dir);
+        } else {
+            $this->query->orderBy($sort_column , 'ASC');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add limit to query
+     *
+     * @param null $count
+     * @return $this
+     */
+    public function limit($count = null)
+    {
+        if (!is_null($count)) {
+            $this->query->take($count);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Finish Query and return collection
+     *
+     * @param string $type
+     * @return mixed
+     */
+    public function getResults($type = null)
+    {
+        $results = $this->query->get();
+
+        if($type == 'array') {
+            $results = $results->toArray();
+        } else if($type == 'json') {
+            $results = $results->toJson();
+        }
+
+        return $results;
+    }
+
+    /**
      * Find set of repo objects.
      *
-     * @param $sort_column
-     * @param $sort_dir
-     * @param $limit
-     * @@return StdClass Object with $items and $totalItems
+     * @param null $sort_column
+     * @param null $sort_dir
+     * @param null $limit
+     * @param array $include
+     * @param null $query
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function findAll($sort_column = NULL, $sort_dir = NULL, $limit = NULL, $include = array())
+    public function findAll($sort_column = null, $sort_dir = null, $limit = null, $include = [], $query = null)
     {
-
-        $query = $this;
+        // If null use query from model
+        if (is_null($query)) {
+            $query = $this;
+        }
 
         if ($sort_column != null && $sort_dir != null) {
             $query = $query->orderBy($sort_column , $sort_dir);
@@ -40,21 +158,19 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
 
         $items = $query->get();
 
-        $data = new \Stdclass;
-        $data->items = $items->all();
-        $data->totalItems = $items->count();
-
         return $items;
     }
 
 
-    /*
-     * Find repo object by id.
+    /**
+     * Get repo data by id.
      *
      * @param $id
-     * @return object
+     * @param bool $fail
+     * @param array $include
+     * @return \Illuminate\Database\Eloquent\Collection|Model|\Illuminate\Support\Collection|null|static
      */
-    public function findById($id, $fail = false, $include = array())
+    public function findById($id, $fail = false, $include = [])
     {
 
         $query = $this;
@@ -71,87 +187,88 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
 
     }
 
-    /*
-     * Find repo object by field.
+    /**
+     * Find repo data by field.
      *
      * @param $field
      * @param $value
-     * @return array
+     * @return mixed
      */
     public function findByField($field, $value)
     {
         return $this->where($field, $value)->get();
     }
 
-    /*
-     * Create repo object.
+    /**
+     * Create row in repo
      *
      * @param $input
-     * @return bool
+     * @return static
      */
     public function createRow($input)
     {
         return $this->create($input);
     }
 
-    /*
-     * Create repo object only if doesn't exist.
+    /**
+     * Create Row in repo if row data does not exist
      *
      * @param $input
-     * @return bool
+     * @return static
      */
     public function createRowOnlyIfNew($input)
     {
         return $this->firstOrCreate($input);
     }
 
-    /*
-     * Update repo object.
+    /**
+     * Update row in repo
      *
      * @param $input
-     * @return bool
+     * @return bool|int
      */
     public function updateRow($input)
     {
         return $this->update($input);
     }
 
-    /*
-    * Update repo object or create object if row doesn't exist.
-    *
-    * @param $input
-    * @return bool
-    */
+    /**
+     * Update repo row or create new row if row does not exist.
+     *
+     * @param $row_match_data
+     * @param $input
+     * @return static
+     */
     public function updateRowOrCreate($row_match_data, $input)
     {
         return $this->updateOrCreate($row_match_data, $input);
     }
 
-    /*
-     * Delete repo object.
+    /**
+     * Delete row from repo
      *
      * @param $id
-     * return int
+     * @return int
      */
     public function deleteRow($id)
     {
-        return $this->destroy($id);
+       return $this->destroy($id);
     }
 
-    /*
-    * Get Total objects in table.
-    *
-    * @return integer
-    */
+    /**
+     * Get Total from Repo
+     *
+     * @return mixed
+     */
     public function getTotal()
     {
         return $this->count();
     }
 
-    /*
-     * Get formatted create field.
+    /**
+     * Get formatted created_at field
      *
-     * @return date
+     * @return bool|string
      */
     public function getFormattedCreatedAttribute()
     {
@@ -160,10 +277,10 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
         }
     }
 
-    /*
-     * Get formatted create field.
+    /**
+     * Get formatted updated_dat field.
      *
-     * @return date
+     * @return bool|string
      */
     public function getFormattedModifiedAttribute()
     {
@@ -171,6 +288,4 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
             return date('m/d/Y g:i a', strtotime($this->getAttribute('updated_at')));
         }
     }
-
-
 }

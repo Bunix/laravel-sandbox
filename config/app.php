@@ -159,7 +159,7 @@ return [
         /*
         * Package Service Providers
         */
-        'CleanMailer\PackageServiceProvider',
+        'LaraMailer\LaraMailerServiceProvider',
 	],
 
 	/*

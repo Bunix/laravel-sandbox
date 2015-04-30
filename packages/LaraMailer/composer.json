@@ -1,0 +1,41 @@
+{
+    "name": "emitkowski/clean-mailer",
+    "type": "library",
+    "description": "A cleaner email builder for Laravel 5 using chained functions and including email view management.",
+    "keywords": [
+        "laravel 5",
+        "laravel",
+        "email",
+        "template",
+        "views"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eric Mitkowski",
+            "email": "eric.mitkowski@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaraMailer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaraMailer\\PHPUnit\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

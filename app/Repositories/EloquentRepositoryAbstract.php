@@ -29,8 +29,11 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
         $this->query = $this->newQuery();
     }
 
+
+    /******************** Query Building and Result Functions *****************************/
+
     /**
-     * Start Query Building
+     * Start New Query
      *
      * @return $this
      */
@@ -82,6 +85,13 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
     }
 
 
+    /**
+     * Add sort to query
+     *
+     * @param $sort_column
+     * @param null $sort_dir
+     * @return $this
+     */
     public function sort($sort_column, $sort_dir = null)
     {
         if (!is_null($sort_dir)) {
@@ -109,7 +119,7 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
     }
 
     /**
-     * Finish Query and return collection
+     * Get Query Results
      *
      * @param string $type
      * @return mixed
@@ -124,80 +134,26 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
             $results = $results->toJson();
         }
 
+        $this->query = $this->newQuery();
+
         return $results;
     }
 
     /**
-     * Find set of repo objects.
+     * Delete Query Results
      *
-     * @param null $sort_column
-     * @param null $sort_dir
-     * @param null $limit
-     * @param array $include
-     * @param null $query
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return mixed affected rows
      */
-    public function findAll($sort_column = null, $sort_dir = null, $limit = null, $include = [], $query = null)
+    public function deleteResults()
     {
-        // If null use query from model
-        if (is_null($query)) {
-            $query = $this;
-        }
+        $result = $this->query->delete();
 
-        if ($sort_column != null && $sort_dir != null) {
-            $query = $query->orderBy($sort_column , $sort_dir);
-        }
+        $this->query = $this->newQuery();
 
-        if ($limit != null) {
-            $query = $query->take($limit);
-        }
-
-        if (!empty($include)) {
-            $query = $query->with($include);
-        }
-
-        $items = $query->get();
-
-        return $items;
+        return $result;
     }
 
-
-    /**
-     * Get repo data by id.
-     *
-     * @param $id
-     * @param bool $fail
-     * @param array $include
-     * @return \Illuminate\Database\Eloquent\Collection|Model|\Illuminate\Support\Collection|null|static
-     */
-    public function findById($id, $fail = false, $include = [])
-    {
-
-        $query = $this;
-
-        if(!empty($include)) {
-            $query = $query->with($include);
-        }
-
-        if($fail == true) {
-            return $query->findOrFail($id);
-        } else {
-            return $query->find($id);
-        }
-
-    }
-
-    /**
-     * Find repo data by field.
-     *
-     * @param $field
-     * @param $value
-     * @return mixed
-     */
-    public function findByField($field, $value)
-    {
-        return $this->where($field, $value)->get();
-    }
+    /******************** Repository Row Manipulation Functions *****************************/
 
     /**
      * Create row in repo
@@ -252,7 +208,7 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
      */
     public function deleteRow($id)
     {
-        return $this->destroy($id);
+        return $this->find($id)->delete();
     }
 
     /**
@@ -263,6 +219,77 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
     public function getTotal()
     {
         return $this->count();
+    }
+
+
+    /**
+     * Find set of repo objects.
+     *
+     * @param null $sort_column
+     * @param null $sort_dir
+     * @param null $limit
+     * @param array $include
+     * @param null $query
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function findAll($sort_column = null, $sort_dir = null, $limit = null, $include = [], $query = null)
+    {
+        // If null use query from model
+        if (is_null($query)) {
+            $query = $this;
+        }
+
+        if ($sort_column != null && $sort_dir != null) {
+            $query = $query->orderBy($sort_column , $sort_dir);
+        }
+
+        if ($limit != null) {
+            $query = $query->take($limit);
+        }
+
+        if (!empty($include)) {
+            $query = $query->with($include);
+        }
+
+        $items = $query->get();
+
+        return $items;
+    }
+
+    /**
+     * Get repo data by id.
+     *
+     * @param $id
+     * @param bool $fail
+     * @param array $include
+     * @return Model|\Illuminate\Database\Eloquent\Collection|Model|\Illuminate\Support\Collection|null|static
+     */
+    public function findById($id, $fail = false, $include = [])
+    {
+
+        $query = $this;
+
+        if(!empty($include)) {
+            $query = $query->with($include);
+        }
+
+        if($fail == true) {
+            return $query->findOrFail($id);
+        }
+
+        return $query->find($id);
+    }
+
+    /**
+     * Find repo data by field.
+     *
+     * @param $field
+     * @param $value
+     * @return mixed
+     */
+    public function findByField($field, $value)
+    {
+        return $this->where($field, $value)->get();
     }
 
     /**

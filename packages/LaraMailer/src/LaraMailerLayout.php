@@ -11,13 +11,6 @@
  */
 class LaraMailerLayout
 {
-
-    /**
-     * Constant representing a variable that will hold the message data in email view if data is not an array.
-     *
-     */
-    const MESSAGE_VARIABLE = '_message';
-
     /**
      * Constant representing a variable that will hold the template path in email view.
      */
@@ -37,13 +30,12 @@ class LaraMailerLayout
      */
     protected $view_template = 'emails.templates.default';
 
-
     /**
-     * Message Data
+     * Message Variables
      *
      * @var array
      */
-    protected $message_data = [];
+    protected $message_variables = [];
 
 
     /**
@@ -51,7 +43,7 @@ class LaraMailerLayout
      */
     public function __construct()
     {
-        $this->processMessageData();
+        $this->assignTemplate();
     }
 
 
@@ -65,6 +57,15 @@ class LaraMailerLayout
         $this->view_layout = $view;
     }
 
+    /**
+     * Get Email View Layout
+     *
+     * @return mixed
+     */
+    public function getViewLayout()
+    {
+        return $this->view_layout;
+    }
 
     /**
      * Set Email View Template
@@ -80,26 +81,6 @@ class LaraMailerLayout
 
 
     /**
-     * Set Message data
-     *
-     * @param $message_data
-     */
-    public function setMessageData($message_data)
-    {
-        $this->processMessageData($message_data);
-    }
-
-    /**
-     * Get Email View Layout
-     *
-     * @return mixed
-     */
-    public function getViewLayout()
-    {
-        return $this->view_layout;
-    }
-
-    /**
      * Get Email View Template
      *
      * @return mixed
@@ -110,15 +91,36 @@ class LaraMailerLayout
     }
 
     /**
-     * Get Email Message Data
+     * Assign Message Variables
+     *
+     * @param $message_variables
+     */
+    public function includeVariables($message_variables)
+    {
+        $this->message_variables = array_merge($this->message_variables, $message_variables);
+        $this->assignTemplate();
+    }
+
+
+    /**
+     * Clear existing message variables
+     *
+     */
+    public function clearVariables()
+    {
+        $this->message_variables = [];
+        $this->assignTemplate();
+    }
+
+    /**
+     * Get Message Variables
      *
      * @return mixed
      */
-    public function getMessageData()
+    public function getMessageVariables()
     {
-        return $this->message_data;
+        return $this->message_variables;
     }
-
 
     /**
      * Assign the template variable into body data
@@ -126,25 +128,7 @@ class LaraMailerLayout
      */
     private function assignTemplate()
     {
-        $this->message_data['_template'] = $this->view_template;
-    }
-
-    /**
-     * Process Message for passing to view
-     *
-     * @param $message_data
-     */
-    private function processMessageData($message_data = null)
-    {
-        if (is_null ($message_data)) {
-            $this->message_data[LaraMailerLayout::MESSAGE_VARIABLE] = '';
-        } elseif (!is_array($message_data)) {
-            $this->message_data[LaraMailerLayout::MESSAGE_VARIABLE] = $message_data;
-        } else {
-            $this->message_data = $message_data;
-        }
-
-        $this->assignTemplate();
+        $this->message_variables['_template'] = $this->view_template;
     }
 
 }

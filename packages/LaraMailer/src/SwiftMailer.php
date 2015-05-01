@@ -35,53 +35,96 @@ class SwiftMailer extends LaraMailerAbstract implements LaraMailerInterface
     /**
      * Send Mail
      *
-     * @param null $to
-     * @param null $message_data
+     * @param null $raw_message
      * @return bool
      */
-    public function send($to = null, $message_data = null)
+    public function send($raw_message = null)
     {
-        // Set optional To
-        if (!is_null($to)) {
-            $this->to($to);
-        }
-
-        // Set Optional Message Data
-        if (!is_null($message_data)) {
-            $this->setMessageData($message_data);
-        }
-
         // Set pretend value
         Mail::pretend($this->pretend);
 
+        // Set Optional Message Data
+        if (!is_null($raw_message)) {
+            $send_result = $this->sendRawMessage($raw_message);
+        } else {
+            $send_result = $this->sendMessage();
+        }
+
+        // Turn pretend back to global config after send
+        Mail::pretend(config('mail.pretend'));
+
+        return $send_result;
+    }
+
+
+    /**
+     * Send SwiftMail Message
+     *
+     * @return bool
+     */
+    private function sendMessage()
+    {
         try {
-            Mail::send($this->mailer_layout->getViewLayout(), $this->mailer_layout->getMessageData(),
-                function ($message) {
+            Mail::send($this->mailer_layout->getViewLayout(), $this->mailer_layout->getMessageVariables(), function ($message) {
 
-                    // Set message parts
-                    $message->to($this->to)
-                            ->subject($this->subject)
-                            ->cc($this->cc)
-                            ->bcc($this->bcc);
+                // Set message parts
+                $message->to($this->to)
+                    ->subject($this->subject)
+                    ->cc($this->cc)
+                    ->bcc($this->bcc);
 
-                    // Set all attachments
-                    foreach ($this->attachments as $a) {
-                        $message->attach($a['path'], $a['options']);
-                    }
+                // Set all attachments
+                foreach ($this->attachments as $a) {
+                    $message->attach($a['path'], $a['options']);
+                }
 
-                    $this->subjectWarning();
-
-                });
-
-            // Turn pretend back to global config after send
-            Mail::pretend(config('mail.pretend'));
+                $this->subjectWarning();
+            });
         } catch (ErrorException $e) {
-            $msg ='SwiftMail could not send message: '.$e->getMessage();
+            $msg = 'SwiftMail could not send message: ' . $e->getMessage();
+            Log::error($msg);
+            return false;
+        } catch (\Swift_TransportException $e) {
+            $msg = 'SwiftMail SMTP is not working: ' . $e->getMessage();
+            Log::error($msg);
+            return false;
+        }
+
+        return true;
+    }
+
+
+    /**
+     * Send SwiftMail Raw Message
+     *
+     * @param $message
+     * @return bool
+     */
+    private function sendRawMessage($message)
+    {
+        try {
+            Mail::raw($message, function ($message) {
+
+                // Set message parts
+                $message->to($this->to)
+                    ->subject($this->subject)
+                    ->cc($this->cc)
+                    ->bcc($this->bcc);
+
+                // Set all attachments
+                foreach ($this->attachments as $a) {
+                    $message->attach($a['path'], $a['options']);
+                }
+
+                $this->subjectWarning();
+            });
+        } catch (ErrorException $e) {
+            $msg = 'SwiftMail could not send message: ' . $e->getMessage();
             dd($msg);
             Log::error($msg);
             return false;
         } catch (\Swift_TransportException $e) {
-            $msg = 'SwiftMail SMTP is not working: '. $e->getMessage();
+            $msg = 'SwiftMail SMTP is not working: ' . $e->getMessage();
             dd($msg);
             Log::error($msg);
             return false;

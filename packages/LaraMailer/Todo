@@ -1,0 +1,6 @@
+-- set up default email configs
+-- HTML, Text Views
+-- Facade for LaraMailer::
+-- Find and Replace in raw send string for variables
+-- Additional Config Options???
+-- Mail Queue

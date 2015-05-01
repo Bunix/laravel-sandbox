@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Examples;
 
-use Illuminate\Routing\Controller;
 
-use App\Services\Support\Mailer\Customer\CustomerWelcomeEmail;
+use Illuminate\Routing\Controller;
+use LaraMailer\LaraMailerInterface;
 
 class MailerController extends Controller
 {
@@ -16,17 +16,18 @@ class MailerController extends Controller
         $this->middleware('guest');
     }
 
-    public function getIndex(CustomerWelcomeEmail $welcome_email)
+    public function getIndex(LaraMailerInterface $mailer)
     {
+        er('Start Mailer');
+
         $message_data['first_name'] = 'John';
         $message_data['last_name'] = 'Doe';
 
-        $welcome_email->setTemplate('emails.templates.customer.welcome')
-                ->subject('Welcome New Customer')
-               //->cc('test1@test.com')
-               //->bcc('test2@test.com')
+        $result = $mailer->type('customer_welcome')->to('emitz13@gmail.com')->pass($message_data)->send();
+               //->bcc(['emitz16@hotmail.com', 'eric.mitkowski@gmail.com'])
                //->attach('/public/pdf/pdf-test.pdf')
-               ->send('emitz13@gmail.com', $message_data);
+
+        xr($result);
 
         echo 'Mail Sent';
     }

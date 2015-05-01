@@ -197,27 +197,27 @@ abstract class LaraMailerAbstract
 
 
     /**
-     * Add Message data
+     * Pass Message variables
      *
-     * @param $message_data
+     * @param array $message_variables
      * @return $this
      */
-    public function messageData($message_data)
+    public function pass(array $message_variables)
     {
-        $this->mailer_layout->setMessageData($message_data);
+        $this->mailer_layout->includeVariables($message_variables);
 
         return $this;
     }
 
 
     /**
-     * Clear any message data assigned
+     * Clear All Message Variables Assigned (except template)
      *
      * @return $this
      */
-    public function clearMessageData()
+    public function clear()
     {
-        $this->mailer_layout->setMessageData([]);
+        $this->mailer_layout->clearVariables();
 
         return $this;
     }
@@ -335,6 +335,11 @@ abstract class LaraMailerAbstract
         $bcc_config = config($config_string.'.bcc');
         if (isset($bcc_config)) {
             $this->bcc($bcc_config);
+        }
+
+        $message_variables_config = config($config_string.'.message_variables');
+        if (isset($message_variables_config)) {
+            $this->pass($message_variables_config);
         }
     }
 }

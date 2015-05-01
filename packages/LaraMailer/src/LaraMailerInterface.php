@@ -25,11 +25,12 @@ interface LaraMailerInterface
     public function getType();
 
     /**
-    * Sends mail
-    *
-    * @return boolean
-    */
-    public function send();
+     * Sends mail
+     *
+     * @param null $raw_message
+     * @return
+     */
+    public function send($raw_message = null);
 
     /**
      * Set Email Layout
@@ -80,19 +81,19 @@ interface LaraMailerInterface
     public function bcc($address);
 
     /**
-     * Set Message Data
+     * Pass Message variables
      *
-     * @param $message_data
+     * @param array $message_variables
      * @return mixed
      */
-    public function messageData($message_data);
+    public function pass(array $message_variables);
 
     /**
-     * Clear Message Data
+     * Clear All Message Variables Assigned (except template)
      *
      * @return mixed
      */
-    public function clearMessageData();
+    public function clear();
 
     /**
      * Attaches file to mail

@@ -1,1 +1,1 @@
-{{ $_message }}
+Default Message Template

@@ -11,10 +11,19 @@ return [
     'library' => 'SwiftMailer',
 
 
-    'message_defaults' => [
+    /*
+     * Choose Default Message Properties that will load for any LaraMailer instance.
+     *
+     *
+     */
+    'default' => [
         'layout' => 'emails.layouts.default',
         'template' => 'emails.templates.default',
-        'subject' => 'LaraMailer Subject'
+        'subject' => 'LaraMailer Subject',
+        'to' => [],
+        'cc' => [],
+        'bcc' => [],
+        'message_variables' => []
     ],
 
     /*
@@ -27,6 +36,7 @@ return [
      * to - single or array of email address
      * cc - single or array of email address
      * bcc - single or array of email address
+     * message_variables - array of message variables
      *
      * Ex.
      *    'user_welcome' => [
@@ -45,7 +55,11 @@ return [
         ],
         'customer_welcome' => [
             'template' => 'emails.templates.customer.welcome',
-            'subject' => 'Welcome New Customer!'
+            'subject' => 'Welcome New Customer!',
+            'message_variables' => [
+                'first_name' => 'Jim Bob',
+                'last_name' => 'Jones'
+            ]
         ]
     ]
 ];

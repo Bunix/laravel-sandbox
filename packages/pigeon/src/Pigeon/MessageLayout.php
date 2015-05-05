@@ -97,6 +97,9 @@ class MessageLayout
      */
     public function includeVariables($message_variables)
     {
+        // Remove the default template variable key from any variable assignments
+        unset($message_variables[self::TEMPLATE_VARIABLE]);
+
         $this->message_variables = array_merge($this->message_variables, $message_variables);
         $this->assignTemplate();
     }

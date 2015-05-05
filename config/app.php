@@ -214,7 +214,7 @@ return [
 
         // Custom Aliases
         'Logger' => 'App\Facades\LoggerFacade',
-        //'Pigeon' => 'Pigeon\Pigeon'
+        'Pigeon' => 'Pigeon\Pigeon'
 
 	],
 

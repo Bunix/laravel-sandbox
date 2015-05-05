@@ -246,7 +246,7 @@ abstract class MessageAbstract
     protected function subjectWarning()
     {
         if (empty($this->subject) || $this->subject === '') {
-            Log::warning('Pigeon sent message without subject.');
+            Log::warning('Pigeon sent a message without a subject.');
         }
     }
 
@@ -282,7 +282,7 @@ abstract class MessageAbstract
      */
     private function setDefaultConfigs()
     {
-        $config_string = 'packages.pigeon.default';
+        $config_string = 'pigeon.default';
 
         $message_config = config($config_string);
 
@@ -303,7 +303,7 @@ abstract class MessageAbstract
      */
     private function processMessageTypeConfigs($message_type)
     {
-        $config_string = 'packages.pigeon.message_types.'.$message_type;
+        $config_string = 'pigeon.message_types.'.$message_type;
 
         $message_config = config($config_string);
 

@@ -1,4 +1,4 @@
-<?php namespace LaraMailer;
+<?php namespace Pigeon;
 
 use Exception;
 

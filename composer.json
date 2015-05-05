@@ -20,7 +20,7 @@
 		],
 		"psr-4": {
 			"App\\": "app/",
-            "LaraMailer\\": "packages/LaraMailer/src"
+            "Pigeon\\": "packages/pigeon/src/"
 		}
 	},
 	"autoload-dev": {

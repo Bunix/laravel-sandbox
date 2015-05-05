@@ -1,15 +1,15 @@
-<?php namespace LaraMailer;
+<?php namespace Pigeon;
 
 /**
- * Class LaraMailerLayout
- * @package LaraMailer
+ * Class MessageLayout
+ * @package Pigeon
  *
- * This class handles layout management for the LaraMailer package.
+ * This class handles layout management for the Pigeon package.
  * This holds variables for view files that be used for building email templates.
  *
  *
  */
-class LaraMailerLayout
+class MessageLayout
 {
     /**
      * Constant representing a variable that will hold the template path in email view.

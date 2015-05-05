@@ -1,4 +1,4 @@
-<?php namespace LaraMailer;
+<?php namespace Pigeon;
 
 use ErrorException;
 use Illuminate\Support\Facades\Log;
@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\Mail;
 
 
 /**
- * Class SwiftMailerAbstract
- * @package LaraMailer
+ * Class SwiftMailer
+ * @package Pigeon
  *
- * This class utilizes Laravel 5 Swift Mailer methods for a LaraMailer Implementation
+ * This class utilizes Laravel 5 Swift Mailer methods for a Pigeon Implementation
  *
  */
-class SwiftMailer extends LaraMailerAbstract implements LaraMailerInterface
+class SwiftMailer extends MessageAbstract implements PigeonInterface
 {
 
     /**
@@ -23,13 +23,13 @@ class SwiftMailer extends LaraMailerAbstract implements LaraMailerInterface
     protected $pretend = false;
 
     /**
-     * Swift Mailer Abstract Constructor
+     * Swift Mailer Constructor
      *
-     * @param LaraMailerLayout $mailer_layout
+     * @param MessageLayout $message_layout
      */
-    public function __construct(LaraMailerLayout $mailer_layout)
+    public function __construct(MessageLayout $message_layout)
     {
-        $this->mailer_layout = $mailer_layout;
+        parent::__construct($message_layout);
     }
 
     /**
@@ -65,7 +65,7 @@ class SwiftMailer extends LaraMailerAbstract implements LaraMailerInterface
     private function sendMessage()
     {
         try {
-            Mail::send($this->mailer_layout->getViewLayout(), $this->mailer_layout->getMessageVariables(), function ($message) {
+            Mail::send($this->message_layout->getViewLayout(), $this->message_layout->getMessageVariables(), function ($message) {
 
                 // Set message parts
                 $message->to($this->to)
@@ -137,7 +137,7 @@ class SwiftMailer extends LaraMailerAbstract implements LaraMailerInterface
      * Use Laravel pretend method and send mail to log file instead
      *
      * @param bool $value
-     * @return LaraMailerAbstract
+     * @return PigeonAbstract
      */
     public function pretend($value = true)
     {

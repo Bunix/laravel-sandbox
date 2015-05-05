@@ -159,7 +159,7 @@ return [
         /*
         * Package Service Providers
         */
-        'LaraMailer\LaraMailerServiceProvider',
+        'Pigeon\PigeonServiceProvider',
 	],
 
 	/*
@@ -213,7 +213,8 @@ return [
         'HTML'=> 'Illuminate\Html\HtmlFacade',
 
         // Custom Aliases
-        'Logger' => 'App\Facades\LoggerFacade'
+        'Logger' => 'App\Facades\LoggerFacade',
+        //'Pigeon' => 'Pigeon\Pigeon'
 
 	],
 

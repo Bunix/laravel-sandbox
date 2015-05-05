@@ -1,13 +1,13 @@
-<?php namespace LaraMailer;
+<?php namespace Pigeon;
 
 /**
- * Interface LaraMailerInterface
- * @package LaraMailer
+ * Interface PigeonInterface
+ * @package Pigeon
  *
- * Interface for using different PHP mailer libraries with LaraMailer
+ * Interface for using different PHP mailer libraries with Pigeon
  *
  */
-interface LaraMailerInterface
+interface PigeonInterface
 {
 
     /**

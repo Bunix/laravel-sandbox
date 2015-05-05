@@ -3,23 +3,24 @@
 return [
 
     /*
-     * Choose the Mailer Library for LaraMailer.
+     * Choose the Mailer Library for Pigeon.
      *
      * Current Options: ['SwiftMailer']
      *
      */
     'library' => 'SwiftMailer',
 
-
     /*
-     * Choose Default Message Properties that will load for any LaraMailer instance.
+     * Choose Default Message Configs that will load for any Pigeon instance.
+     * These will be overridden by using a message type or changing variables with
+     * Pigeon functions.
      *
      *
      */
     'default' => [
         'layout' => 'emails.layouts.default',
         'template' => 'emails.templates.default',
-        'subject' => 'LaraMailer Subject',
+        'subject' => 'Pigeon Delivery',
         'to' => [],
         'cc' => [],
         'bcc' => [],
@@ -45,22 +46,12 @@ return [
      *      'subject' => 'Welcome New Customer'
      *      'cc' => ['john.doe@myapp.com', 'jane.doe@myapp.com']
      *      'bcc' => 'customerservice@myapp.com'
+     *      'message_variables' = []
      *    ]
      *
      */
     'message_types' => [
-        'alert' => [
-            'layout' => 'emails.layouts.alert',
-            'template' => 'emails.templates.alert.standard'
-        ],
-        'customer_welcome' => [
-            'template' => 'emails.templates.customer.welcome',
-            'subject' => 'Welcome New Customer!',
-            'message_variables' => [
-                'first_name' => 'Jim Bob',
-                'last_name' => 'Jones'
-            ]
-        ]
+
     ]
 ];
 

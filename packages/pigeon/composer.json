@@ -1,11 +1,13 @@
 {
-    "name": "emitkowski/clean-mailer",
+    "name": "emitkowski/pigeon",
     "type": "library",
-    "description": "A cleaner email builder for Laravel 5 using chained functions and including email view management.",
+    "description": "A more flexible email message builder for Laravel 5 including chained methods, reusable message type configurations, and email layout and template view management.",
     "keywords": [
+        "pigeon",
         "laravel 5",
         "laravel",
         "email",
+        "message",
         "template",
         "views"
     ],
@@ -25,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "LaraMailer\\": "src/"
+            "Pigeon\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "LaraMailer\\PHPUnit\\": "tests/"
+            "Pigeon\\PHPUnit\\": "tests/"
         }
     },
     "extra": {

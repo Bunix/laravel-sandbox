@@ -1,23 +1,22 @@
-<?php namespace LaraMailer;
+<?php namespace Pigeon;
 
 use Illuminate\Support\Facades\Log;
 
 /**
- * Class LaraMailerAbstract
- * @package LaraMailer
+ * Class MessageAbstract
+ * @package Pigeon
  *
- * This class holds the general mailing functions that would be used to create email using LaraMailer
+ * This class holds the general mailing functions that would be used to create email using Pigeon
  *
  */
-abstract class LaraMailerAbstract
+abstract class MessageAbstract
 {
     /**
-     * Mailer Layout instance
+     * Message Layout instance
      *
      * @MailerLayout
      */
-    protected $mailer_layout;
-
+    protected $message_layout;
 
     /**
      * Message Type
@@ -67,11 +66,12 @@ abstract class LaraMailerAbstract
     /**
      * Swift Mailer Abstract Constructor
      *
-     * @param LaraMailerLayout $mailer_layout
+     * @param MessageLayout $message_layout
      */
-    public function __construct(LaraMailerLayout $mailer_layout)
+    public function __construct(MessageLayout $message_layout)
     {
-        $this->mailer_layout = $mailer_layout;
+        $this->message_layout = $message_layout;
+        $this->setDefaultConfigs();
     }
 
 
@@ -84,7 +84,7 @@ abstract class LaraMailerAbstract
     public function type($message_type)
     {
         try {
-            $this->checkTypeConfigs($message_type);
+            $this->processMessageTypeConfigs($message_type);
         } catch (InvalidMessageTypeException $e) {
             Log::error($e->message());
         }
@@ -111,7 +111,7 @@ abstract class LaraMailerAbstract
      */
     public function layout($layout_path)
     {
-        $this->mailer_layout->setViewLayout($layout_path);
+        $this->message_layout->setViewLayout($layout_path);
 
         return $this;
     }
@@ -125,7 +125,7 @@ abstract class LaraMailerAbstract
      */
     public function template($template_path)
     {
-        $this->mailer_layout->setViewTemplate($template_path);
+        $this->message_layout->setViewTemplate($template_path);
 
         return $this;
     }
@@ -204,7 +204,7 @@ abstract class LaraMailerAbstract
      */
     public function pass(array $message_variables)
     {
-        $this->mailer_layout->includeVariables($message_variables);
+        $this->message_layout->includeVariables($message_variables);
 
         return $this;
     }
@@ -217,7 +217,7 @@ abstract class LaraMailerAbstract
      */
     public function clear()
     {
-        $this->mailer_layout->clearVariables();
+        $this->message_layout->clearVariables();
 
         return $this;
     }
@@ -246,7 +246,7 @@ abstract class LaraMailerAbstract
     protected function subjectWarning()
     {
         if (empty($this->subject) || $this->subject === '') {
-            Log::warning('LaraMailer sent message without subject.');
+            Log::warning('Pigeon sent message without subject.');
         }
     }
 
@@ -276,15 +276,34 @@ abstract class LaraMailerAbstract
     }
 
     /**
+     * Set Default Configuration for Message
+     *
+     * @throws UnknownMessageTypeException
+     */
+    private function setDefaultConfigs()
+    {
+        $config_string = 'packages.pigeon.default';
+
+        $message_config = config($config_string);
+
+        if (is_null($message_config)) {
+            throw new UnknownMessageTypeException('default');
+        }
+
+        $this->setConfigOptions($config_string);
+    }
+
+
+    /**
      * Check the configs for message type and then assign if valid
      *
      * @param $message_type
      * @throws InvalidMessageTypeException
      * @throws UnknownMessageTypeException
      */
-    private function checkTypeConfigs($message_type)
+    private function processMessageTypeConfigs($message_type)
     {
-        $config_string = 'packages.laramailer.message_types.'.$message_type;
+        $config_string = 'packages.pigeon.message_types.'.$message_type;
 
         $message_config = config($config_string);
 
@@ -296,16 +315,19 @@ abstract class LaraMailerAbstract
             throw new InvalidMessageTypeException($message_type);
         }
 
-        $this->assignConfigs($config_string);
+        if($this->setConfigOptions($config_string)) {
+            $this->message_type = $message_type;
+        }
 
     }
 
     /**
-     * Assign all existing config types to message properties
+     * Set Configuration Options
      *
      * @param $config_string
+     * @return bool
      */
-    private function assignConfigs($config_string)
+    private function setConfigOptions($config_string)
     {
         $subject_config = config($config_string.'.subject');
         if (isset($subject_config)) {
@@ -341,5 +363,7 @@ abstract class LaraMailerAbstract
         if (isset($message_variables_config)) {
             $this->pass($message_variables_config);
         }
+
+        return true;
     }
 }

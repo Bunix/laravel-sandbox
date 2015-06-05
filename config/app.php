@@ -148,11 +148,9 @@ return [
         /*
          * Custom Service Providers...
          */
-        'App\Providers\AlertServiceProvider',
         'App\Providers\BillingServiceProvider',
         'App\Providers\DataImporterServiceProvider',
         'App\Providers\LoggerServiceProvider',
-        'App\Providers\MailerServiceProvider',
         'App\Providers\RepositoryServiceProvider',
         'App\Providers\ValidatorServiceProvider',
 
@@ -160,6 +158,7 @@ return [
         * Package Service Providers
         */
         'Larablocks\Pigeon\PigeonServiceProvider',
+        //'Larablocks\EmailSMS\EmailSMSServiceProvider',
 	],
 
 	/*
@@ -214,7 +213,7 @@ return [
 
         // Custom Aliases
         'Logger' => 'App\Facades\LoggerFacade',
-        'Pigeon' => 'Larablocks\Pigeon\Pigeon'
+        //'EmailSMS' => 'Larablocks\EmailSMS\EmailSMS',
 
 	],
 

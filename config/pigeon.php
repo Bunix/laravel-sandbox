@@ -5,10 +5,10 @@ return [
     /*
      * Choose the Mailer Library for Pigeon.
      *
-     * Current Options: ['SwiftMailer']
+     * Current Options: ['IlluminateMailer']
      *
      */
-    'library' => 'SwiftMailer',
+    'library' => 'IlluminateMailer',
 
     /*
      * Choose Default Message Configs that will load for any Pigeon instance.
@@ -18,12 +18,16 @@ return [
      *
      */
     'default' => [
-        'layout' => 'emails.layouts.default',
-        'template' => 'emails.templates.default',
-        'subject' => 'Pigeon Delivery',
-        'to' => ['emitz13@gmail.com'],
+        'to' => [],
         'cc' => [],
         'bcc' => [],
+        'replyTo' => [],
+        'from' => ['sandbox@domain.com' => 'Laravel Sandbox'], // if nothing is entered here, your mail.php default will still be used
+        'sender' => [],
+        'attachments' => [],
+        'subject' => 'Laravel Sandbox Email',
+        'layout' => 'emails.layouts.default',
+        'template' => 'emails.templates.default',
         'message_variables' => []
     ],
 
@@ -31,36 +35,50 @@ return [
      * Set default configs for specific message types.
      *
      * ---Option types---
-     * layout - view file path,
-     * template - view file path',
-     * subject - string',
      * to - single or array of email address
      * cc - single or array of email address
      * bcc - single or array of email address
+     * replyTo - single or array of email address
+     * from - single or array of email address
+     * sender - single or array of email address
+     * subject - string
+     * attachments - array of attachments
+     * layout - view file path
+     * template - view file path
      * message_variables - array of message variables
+
      *
      * Ex.
      *    'user_welcome' => [
+     *
+     *      'cc' => ['john.doe@myapp.com', 'jane.doe@myapp.com'],
+     *      'bcc' => ['customerservice@myapp.com' => 'Customer Service'],
+     *      'replyTo' => 'contact@myapp.com',
+     *      'from' => ['from@myapp.com' => 'My App'],
+     *      'sender' => 'sender@mysmtp.com',
+     *      'subject' => 'Welcome New Customer',
+     *      'attachments' => [
+     *           'path' => base_path().'/public/files/test.pdf',
+     *           'options' => [
+     *               'as' => 'My Test PDF'
+     *           ]
+     *       ],
      *      'layout' => 'emails.layouts.customer',
      *      'template' => 'emails.templates.customer.welcome',
-     *      'subject' => 'Welcome New Customer'
-     *      'cc' => ['john.doe@myapp.com', 'jane.doe@myapp.com']
-     *      'bcc' => 'customerservice@myapp.com'
+     *      'message_variables' = ['appName' => 'My App', 'appUrl' => 'www.myapp.com'],
+     *
      *    ]
      *
      */
     'message_types' => [
         'alert' => [
+            'subject' => 'Alert from Laravel Sandbox',
             'layout' => 'emails.layouts.alert',
             'template' => 'emails.templates.alert.standard'
         ],
         'customer_welcome' => [
-            'template' => 'emails.templates.customer.welcome',
-            'subject' => 'Welcome New Customer!',
-            'message_variables' => [
-                'first_name' => 'Jim Bob',
-                'last_name' => 'Jones'
-            ]
+            'subject' => 'Welcome New Customer',
+            'template' => 'emails.templates.customer.welcome'
         ]
     ]
 ];

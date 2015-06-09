@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\Examples;
+<?php
+
+namespace App\Http\Controllers\Examples;
 
 use App\Services\Support\Alert\Type\WebopsAlert as WebopsAlert;
 use App\Services\Support\Logger\MyLogger as MyLogger;
@@ -56,7 +58,10 @@ class TestController extends Controller {
      */
     public function getAlert(WebopsAlert $alert_service)
     {
-        $alert_service->alert('Test Alert', 'This is a test alert!');
+        er('Alert Started');
+        $result = $alert_service->alert('Test Alert', 'This is a test alert!');
+
+        xr($result);
         er('Alert Sent');
     }
 

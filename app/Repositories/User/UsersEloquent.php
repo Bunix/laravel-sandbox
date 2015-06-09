@@ -1,11 +1,12 @@
-<?php namespace App\Repositories\User;
+<?php
+
+namespace App\Repositories\User;
 
 use App\Repositories\EloquentRepositoryAbstract;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-
 
 /*
  * This class is the Eloquent Implementation of the User Repository

@@ -1,9 +1,9 @@
-<?php namespace App\Services\Support\Validator;
+<?php
+
+namespace App\Services\Support\Validator;
 
 interface ValidatorInterface
 {
-
-
     /**
      * Run validation on input.
      *

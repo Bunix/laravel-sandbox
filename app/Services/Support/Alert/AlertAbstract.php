@@ -1,4 +1,8 @@
-<?php namespace App\Services\Support\Alert;
+<?php
+
+namespace App\Services\Support\Alert;
+
+use Larablocks\Pigeon\PigeonInterface;
 
 /**
  * Class AlertAbstract
@@ -9,7 +13,12 @@
  */
 abstract class AlertAbstract
 {
-    // Mailer Object
+
+    /**
+     * Mailer Instance
+     *
+     * @Larablocks\Pigeon\PigeonInterface;
+     */
     protected $mailer;
 
     // Alert Settings
@@ -24,9 +33,11 @@ abstract class AlertAbstract
     /**
      * Alert Abstract Constructor
      *
+     * @param PigeonInterface $mailer
      */
-    public function __construct()
+    public function __construct(PigeonInterface $mailer)
     {
+        $this->mailer = $mailer;
         $this->email_enabled = (bool) config('support.alert.enabled.email');
         $this->text_enabled = (bool) config('support.alert.enabled.text');
     }
@@ -40,7 +51,7 @@ abstract class AlertAbstract
      * @param $contacts
      * @return
      */
-    abstract public function alert($subject, $message, $alert_level=null, $contacts=null);
+    abstract public function alert($message, $subject, $alert_level = null, $contacts = null);
 
     /**
      * Send Alert Email
@@ -51,7 +62,7 @@ abstract class AlertAbstract
      * @param null $contacts
      * @return bool
      */
-    protected function emailAlert($subject, $message, $alert_level=null, $contacts=null)
+    protected function emailAlert($message, $subject = null, $alert_level = null, $contacts = null)
     {
         // Check if email enabled
         if($this->email_enabled) {
@@ -68,14 +79,15 @@ abstract class AlertAbstract
                 $this->alert_level = $alert_level;
             }
 
-            // Set mailer to
-            $this->mailer->to($this->alert_email);
+            // Set Subject
+            if (!is_null($subject)) {
+                $this->mailer->subject($subject);
+            }
 
-            // Finish mail build and send
-            $this->mailer->subject($subject)->setMessageData($message)->send();
+            return $this->mailer->type('alert')->to($this->alert_email)->pass(['_message' => $message])->send();
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -86,7 +98,7 @@ abstract class AlertAbstract
      * @param null $contacts
      * @return bool
      */
-    protected function textAlert($message, $alert_level=null, $contacts=null)
+    protected function textAlert($message, $alert_level = null, $contacts = null)
     {
         return true;
     }

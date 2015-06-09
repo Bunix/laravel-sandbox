@@ -1,4 +1,6 @@
-<?php namespace App\Services\Support\Billing;
+<?php
+
+namespace App\Services\Support\Billing;
 
 class AuthorizeBilling implements BillingInterface
 {

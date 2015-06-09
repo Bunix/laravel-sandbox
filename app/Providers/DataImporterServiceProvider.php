@@ -1,8 +1,11 @@
-<?php namespace App\Providers;
+<?php
+
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class DataImporterServiceProvider extends ServiceProvider {
+class DataImporterServiceProvider extends ServiceProvider
+{
 
     /**
      * Register the bindings

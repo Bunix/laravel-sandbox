@@ -1,8 +1,11 @@
-<?php namespace App\Providers;
+<?php
+
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider {
+class AppServiceProvider extends ServiceProvider
+{
 
 	/**
 	 * Bootstrap any application services.
@@ -29,11 +32,6 @@ class AppServiceProvider extends ServiceProvider {
 		\App::singleton('log_event_time', function(){
 			return time();
 		});
-
-		$this->app->bind(
-			'Illuminate\Contracts\Auth\Registrar',
-			'App\Services\Registrar'
-		);
 	}
 
 

@@ -1,4 +1,6 @@
-<?php namespace App\Providers;
+<?php
+
+namespace App\Providers;
 
 use App\Services\Support\Billing\AuthorizeBilling;
 use App\Services\Support\Billing\BraintreeBilling;

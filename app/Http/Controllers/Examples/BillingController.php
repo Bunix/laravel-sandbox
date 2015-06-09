@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\Examples;
+<?php
+
+namespace App\Http\Controllers\Examples;
 
 use Illuminate\Routing\Controller;
 use App\Services\Support\Billing\BillingInterface as BillingInterface;

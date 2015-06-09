@@ -1,7 +1,9 @@
-<?php namespace App\Services\Support\Alert\Type;
+<?php
+
+namespace App\Services\Support\Alert\Type;
 
 use App\Services\Support\Alert\AlertAbstract;
-use App\Services\Support\Mailer\Alert\AlertEmail;
+use Larablocks\Pigeon\PigeonInterface;
 
 /**
  * Class WebopsAlert
@@ -13,17 +15,16 @@ class WebopsAlert extends AlertAbstract
     /**
      * Webops Alert Constructor
      *
-     * @param AlertEmail $mailer
+     * @param PigeonInterface $mailer
      */
-    public function __construct(AlertEmail $mailer)
+    public function __construct(PigeonInterface $mailer)
     {
         // Set properties
-        $this->mailer = $mailer;
         $this->alert_email = config('support.alert.type.webops.email');
         $this->alert_level = config('support.alert.type.webops.level');
         $this->subject_header = config('support.alert.type.webops.subject.header');
 
-        parent::__construct();
+        parent::__construct($mailer);
     }
 
     /**
@@ -38,9 +39,9 @@ class WebopsAlert extends AlertAbstract
      * @param null $contacts
      * @return mixed
      */
-    public function alert($subject, $message, $alert_level=null, $contacts=null)
+    public function alert($message, $subject = null, $alert_level = null, $contacts = null)
     {
-        parent::emailAlert($this->subject_header .' '. $this->alert_level . ': ' . $subject, $message, $alert_level, $contacts);
+        return parent::emailAlert($message, $this->subject_header .' '. $this->alert_level . ': ' . $subject, $alert_level, $contacts);
     }
 
 }

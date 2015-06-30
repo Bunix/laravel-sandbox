@@ -6,6 +6,7 @@ use Larablocks\Pigeon\PigeonInterface;
 
 /**
  * Class AlertAbstract
+ *
  * @package App\Services\Support\Alert
  *
  * This class defines the abstract Alert Service
@@ -38,8 +39,8 @@ abstract class AlertAbstract
     public function __construct(PigeonInterface $mailer)
     {
         $this->mailer = $mailer;
-        $this->email_enabled = (bool) config('support.alert.enabled.email');
-        $this->text_enabled = (bool) config('support.alert.enabled.text');
+        $this->email_enabled = (bool)config('support.alert.enabled.email');
+        $this->text_enabled = (bool)config('support.alert.enabled.text');
     }
 
     /**
@@ -65,7 +66,7 @@ abstract class AlertAbstract
     protected function emailAlert($message, $subject = null, $alert_level = null, $contacts = null)
     {
         // Check if email enabled
-        if($this->email_enabled) {
+        if ($this->email_enabled) {
 
             // Check for optional email override
             /*if (is_array($contacts)) {
@@ -102,7 +103,6 @@ abstract class AlertAbstract
     {
         return true;
     }
-
 
 
 }

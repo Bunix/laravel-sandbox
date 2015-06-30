@@ -19,20 +19,17 @@ class BillingServiceProvider extends ServiceProvider
         $app = $this->app;
 
         /**** Authorize Billing ***/
-        $app->bind('AuthorizeBilling', function()
-        {
+        $app->bind('AuthorizeBilling', function () {
             return new AuthorizeBilling();
         });
 
         /**** Braintree Billing ***/
-        $app->bind('BraintreeBilling', function()
-        {
+        $app->bind('BraintreeBilling', function () {
             return new BraintreeBilling();
         });
 
         /**** Stripe Billing ***/
-        $app->bind('StripeBilling', function()
-        {
+        $app->bind('StripeBilling', function () {
             return new StripeBilling();
         });
 

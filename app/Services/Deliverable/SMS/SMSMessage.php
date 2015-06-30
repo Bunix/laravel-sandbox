@@ -8,6 +8,7 @@ class SMSMessage implements EmailSMSInterface
 {
     /**
      * Returns the domain of the phone service provider of the message receiver
+     *
      * @return string
      */
     public function getPhoneProvider()
@@ -17,6 +18,7 @@ class SMSMessage implements EmailSMSInterface
 
     /**
      * Returns the ten digit phone number of the message receiver
+     *
      * @return integer
      */
     public function getPhoneNumber()
@@ -26,6 +28,7 @@ class SMSMessage implements EmailSMSInterface
 
     /**
      * Returns the subject of the message. To skip the subject, return null.
+     *
      * @return mixed
      */
     public function getSubject()
@@ -35,6 +38,7 @@ class SMSMessage implements EmailSMSInterface
 
     /**
      * Returns the body of the message
+     *
      * @return string
      */
     public function getBody()
@@ -44,6 +48,7 @@ class SMSMessage implements EmailSMSInterface
 
     /**
      * Returns the email address of the sender
+     *
      * @return string
      */
     public function getSenderEmail()
@@ -53,6 +58,7 @@ class SMSMessage implements EmailSMSInterface
 
     /**
      * Returns the name of the sender
+     *
      * @return string
      */
     public function getSenderName()

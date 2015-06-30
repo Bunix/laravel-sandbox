@@ -23,7 +23,7 @@ class BillingController extends Controller
     public function getIndex(BillingInterface $billing)
     {
         //$billing = \App::make('StripeBilling');
-        er('Billing set to: '.$billing->display());
+        er('Billing set to: ' . $billing->display());
     }
 
 }

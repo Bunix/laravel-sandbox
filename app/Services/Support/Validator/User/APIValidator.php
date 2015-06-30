@@ -4,7 +4,8 @@ namespace App\Services\Support\Validator\User;
 
 use App\Services\Support\Validator\ValidatorAbstract;
 
-class APIValidator extends ValidatorAbstract {
+class APIValidator extends ValidatorAbstract
+{
 
     /**
      * Validation rules

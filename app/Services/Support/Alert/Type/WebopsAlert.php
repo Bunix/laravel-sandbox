@@ -7,6 +7,7 @@ use Larablocks\Pigeon\PigeonInterface;
 
 /**
  * Class WebopsAlert
+ *
  * @package App\Services\Support\Alert\Type
  */
 class WebopsAlert extends AlertAbstract
@@ -41,7 +42,8 @@ class WebopsAlert extends AlertAbstract
      */
     public function alert($message, $subject = null, $alert_level = null, $contacts = null)
     {
-        return parent::emailAlert($message, $this->subject_header .' '. $this->alert_level . ': ' . $subject, $alert_level, $contacts);
+        return parent::emailAlert($message, $this->subject_header . ' ' . $this->alert_level . ': ' . $subject,
+            $alert_level, $contacts);
     }
 
 }

@@ -12,7 +12,7 @@ class BraintreeBilling implements BillingInterface
      */
     public function display()
     {
-       return 'Braintree';
+        return 'Braintree';
     }
 
 }

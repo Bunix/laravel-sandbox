@@ -12,7 +12,6 @@ Alert
 DataImporter
 FileOrganizer
 Logger
-Mailer
 Validator
 
 

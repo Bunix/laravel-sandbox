@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * This class defines Eloquent methods
  */
 
-abstract class EloquentRepositoryAbstract extends Model implements RepositoryInterface
+abstract class EloquentAbstract extends Model
 {
 
     protected $guarded = ['id'];
@@ -77,6 +77,32 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
     }
 
     /**
+     *  Add Where Not Null Clause to Query
+     *
+     * @param $field
+     * @return $this
+     */
+    public function addWhereNotNull($field)
+    {
+        $this->query->whereNotNull($field);
+
+        return $this;
+    }
+
+    /**
+     *  Add Where Null Clause to Query
+     *
+     * @param $field
+     * @return $this
+     */
+    public function addWhereNull($field)
+    {
+        $this->query->whereNull($field);
+
+        return $this;
+    }
+
+    /**
      *  Add relations to query
      *
      * @param array $relations
@@ -89,6 +115,19 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
         return $this;
     }
 
+
+    /**
+     *  Add Group By to query
+     *
+     * @param array $column
+     * @return $this
+     */
+    public function addGroupBy($column)
+    {
+        $this->query->groupBy($column);
+
+        return $this;
+    }
 
     /**
      * Add sort to query
@@ -135,15 +174,28 @@ abstract class EloquentRepositoryAbstract extends Model implements RepositoryInt
 
         if ($type == 'array') {
             $results = $results->toArray();
-        } else {
-            if ($type == 'json') {
-                $results = $results->toJson();
-            }
+        } elseif ($type == 'json') {
+            $results = $results->toJson();
         }
 
         $this->query = $this->newQuery();
 
         return $results;
+    }
+
+    /**
+     * Update Query Results
+     *
+     * @param $input
+     * @return int
+     */
+    public function updateResults($input)
+    {
+        $result = $this->query->update($input);
+
+        $this->query = $this->newQuery();
+
+        return $result;
     }
 
     /**

@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 /**
  * Interface RepositoryQueryInterface
- *
  * @package App\Repositories
  */
 interface RepositoryQueryInterface
@@ -32,6 +31,22 @@ interface RepositoryQueryInterface
      * @return mixed
      */
     public function addWhere($field, $value);
+
+    /**
+     * Add Where Null Clause to Query
+     *
+     * @param $field
+     * @return mixed
+     */
+    public function addWhereNull($field);
+
+    /**
+     * Add Where Not Null Clause to Query
+     *
+     * @param $field
+     * @return mixed
+     */
+    public function addWhereNotNull($field);
 
     /**
      * Add relations to query
@@ -65,6 +80,14 @@ interface RepositoryQueryInterface
      * @return mixed
      */
     public function getResults($type = null);
+
+    /**
+     * Update Query Results
+     *
+     * @param $input
+     * @return int
+     */
+    public function updateResults($input);
 
     /**
      * Delete Query Results

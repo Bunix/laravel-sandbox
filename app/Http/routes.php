@@ -43,7 +43,7 @@ Route::group(['namespace' => 'Customer'], function () {
 
 Route::group(['namespace' => 'Admin', 'prefix' => config('route.prefix.admin'), 'middleware' => 'auth'], function () {
 
-    Route::get('/', function () {
+    Route::get('/'.config('route.prefix.admin'), function () {
         return view('admin.home');
     });
 

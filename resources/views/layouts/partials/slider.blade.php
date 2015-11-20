@@ -7,19 +7,16 @@
        <div class="ls-slide" data-ls="transition2d:5;">
             <img class="ls-bg" src="img/slides/bg-one.jpg" alt="Slider Background">
 
-            <img height=375 width=523 class="ls-l img-rounded" src="/img/hmd/rift/dk2-large.jpg" alt="Oculus Rift DK2" style="top:12px; left:650px;" data-ls=" durationin : 2000; delayin : 0; offsetxin: right;  offsetxout: right; ">
+            <img height=375 width=523 class="ls-l img-rounded" src="/img/image.jpg" alt="Oculus Rift DK2" style="top:12px; left:650px;" data-ls=" durationin : 2000; delayin : 0; offsetxin: right;  offsetxout: right; ">
 
             <div class="ls-l large-caption" style="top:120px; left:20px;" data-ls="delayin: 750; offsetxin: 0; offsetxout: 0;">
                 <div>
-                    <p><strong>Oculus Rift Development Kit 2:</strong></p>
-                    <p class="small">The hottest developer ready HMD<br> is currently shipping.</p>
+                    <p><strong>Slide 1:</strong></p>
+                    <p class="small">Text.............</p>
                 </div>
                 <div style="margin:10px 0 0 10px">
                     <div class="btn-group">
-                        <a href="/hmd/oculus-rift" class="btn btn-grove-two">Learn More</a>
-                    </div>
-                    <div class="btn-group">
-                        <a target="_blank" href="https://www.oculusvr.com/order/" class="btn btn-grove-two">Pre-order Now</a>
+                        <a href="#" class="btn btn-grove-two">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -28,16 +25,16 @@
         <div class="ls-slide" data-ls="transition2d:5;">
             <img class="ls-bg" src="img/slides/bg-five.jpg" alt="Slider Background">
 
-            <img height=375 width=523 class="ls-l img-rounded" src="/img/hmd/morpheus/morpheus-large.jpg" alt="iMac" style="top:12px; left:50px;" data-ls=" durationin : 2000; delayin : 0; offsetxin: left;  offsetxout: left;">
+            <img height=375 width=523 class="ls-l img-rounded" src="/image.jpg" alt="iMac" style="top:12px; left:50px;" data-ls=" durationin : 2000; delayin : 0; offsetxin: left;  offsetxout: left;">
 
             <div class="ls-l large-caption" style="top:130px; left:630px;" data-ls="delayin:750; offsetxin: 0; offsetxout: 0;">
                 <div>
-                    <p><strong>Sony Project Morpheus:</strong></p>
-                    <p class="small">Sony announces its entry into the VR market<br> with console bound HMD.</p>
+                    <p><strong>Slide 2:</strong></p>
+                    <p class="small">Text.............</p>
                 </div>
                 <div style="margin:10px 0 0 10px">
                     <div class="btn-group">
-                        <a href="/hmd/sony-project-morpheus" class="btn btn-grove-two">Learn More</a>
+                        <a href="#" class="btn btn-grove-two">Learn More</a>
                     </div>
                 </div>
             </div>

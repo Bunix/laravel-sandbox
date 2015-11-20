@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 class APIController extends Controller
 {
 
-    protected $repository;
+    protected $model;
     protected $validator;
 
     public function __construct()

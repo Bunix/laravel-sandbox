@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use Illuminate\Http\Request;
-use App\Repositories\User\UsersEloquent;
+use App\Models\User\User;
 use App\Services\Support\Validator\User\APIValidator;
 
 
@@ -11,9 +11,9 @@ class UserController extends APIController
 {
     protected $data_type = 'user';
 
-    public function __construct(UsersEloquent $repository, APIValidator $validator)
+    public function __construct(User $model, APIValidator $validator)
     {
-        $this->repository = $repository;
+        $this->model = $model;
         $this->validator = $validator;
     }
 
@@ -25,7 +25,7 @@ class UserController extends APIController
      */
     public function index(Request $request)
     {
-        $users = $this->repository->findAll($request->input('sort_column') ?: 'created_at',
+        $users = $this->model->findAll($request->input('sort_column') ?: 'created_at',
             $request->input('sort_dir') ?: 'DESC',
             $request->input('limit') ?: '100');
 
@@ -40,7 +40,7 @@ class UserController extends APIController
      */
     public function show($id)
     {
-        $user = $this->repository->findById($id);
+        $user = $this->model->findById($id);
 
         if (!$user) {
             return $this->outputErrorResponse(['User Not Found With ID: ' . $id]);
@@ -65,7 +65,7 @@ class UserController extends APIController
             return $this->outputErrorResponse($errors->all());
         }
 
-        $user = $this->repository->createRow($input);
+        $user = $this->model->create($input);
 
         return $this->outputResponse($user);
     }
@@ -88,8 +88,8 @@ class UserController extends APIController
             return $this->outputErrorResponse($errors->all());
         }
 
-        $user = $this->repository->findById($id);
-        $user->updateRow($input);
+        $user = $this->model->findById($id);
+        $user->update($input);
 
         return $this->outputResponse($user);
     }
@@ -102,7 +102,7 @@ class UserController extends APIController
      */
     public function destroy($id)
     {
-        $count = $this->repository->deleteRow($id);
+        $count = $this->model->find($id)->delete();
 
         return $this->outputResponse($count . ' Rows Deleted');
     }
@@ -118,7 +118,7 @@ class UserController extends APIController
     {
         $input = array_except($request->all(), '_method');
 
-        $users = $this->repository->APIsearch($input);
+        $users = $this->model->APIsearch($input);
 
         if (!is_object($users)) {
             return $this->outputErrorResponse($users);

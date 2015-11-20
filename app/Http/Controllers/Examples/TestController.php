@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Examples;
 use App\Services\Support\Alert\Type\WebopsAlert as WebopsAlert;
 use App\Services\Support\Logger\MyLogger as MyLogger;
 use Illuminate\Routing\Controller;
-use TestPackage\Test;
 
 class TestController extends Controller
 {
@@ -39,18 +38,6 @@ class TestController extends Controller
     {
         er('Test Controller');
     }
-
-    /**
-     * Show the application dashboard to the user.
-     *
-     * @param Test $package
-     * @return Response
-     */
-    public function getPackage(Test $package)
-    {
-        $package->announce();
-    }
-
 
     /**
      *  Test Alert Service

@@ -12,15 +12,117 @@
 */
 
 /*
- * Development Routes
- */
+|--------------------------------------------------------------------------
+| Customer Routes
+|--------------------------------------------------------------------------
+|
+| Routes for public users of application
+|
+*/
 
-// Environment Detection
+Route::group(['namespace' => 'Customer'], function () {
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::controllers([
+
+    ]);
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+|
+| Routes for internal admin users of application
+|
+*/
+
+Route::group(['namespace' => 'Admin', 'prefix' => config('route.prefix.admin'), 'middleware' => 'auth'], function () {
+
+    Route::get('/', function () {
+        return view('admin.home');
+    });
+
+    Route::controllers([
+
+    ]);
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Auth Routes
+|--------------------------------------------------------------------------
+|
+| Routes for authentication of application
+|
+*/
+
+Route::group(['namespace' => 'Auth'], function () {
+    Route::controllers([
+        'auth' => 'AuthController',
+        'password' => 'PasswordController'
+    ]);
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Routes for api endpoints of application
+|
+*/
+
+Route::group(['namespace' => 'API', 'prefix' => 'api'], function () {
+
+    Route::get('/user/search', array('uses' => 'V1\UserAPIController@search'));
+
+    Route::resources([
+        'user' => 'V1\UserAPIController'
+    ]);
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Examples Routes
+|--------------------------------------------------------------------------
+|
+| Routes for examples valid only in test environments
+|
+*/
+
+Route::group(['namespace' => 'Examples'], function () {
+
+    if (App::environment() != 'production') {
+        Route::controllers([
+            'api-test' => 'APITestController',
+            'billing' => 'BillingController',
+            'mailer' => 'MailerController',
+            'test' => 'TestController'
+        ]);
+    }
+});
+
+/*
+|--------------------------------------------------------------------------
+| Development Routes
+|--------------------------------------------------------------------------
+|
+| Routes for developer information
+|
+*/
+
 Route::get('env', function () {
     dd(App::environment());
 });
 
-// PHP Info
 Route::get('info', function () {
     if (App::environment() != 'production') {
         phpinfo();
@@ -28,47 +130,5 @@ Route::get('info', function () {
 });
 
 
-/*
- * Frontend Routes
- */
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::controllers([
-    'api-test' => 'Examples\APITestController',
-    'auth' => 'Auth\AuthController',
-    'password' => 'Auth\PasswordController',
-    'billing' => 'Examples\BillingController',
-    'mailer' => 'Examples\MailerController',
-    'test' => 'Examples\TestController'
-]);
 
-/*
- *  API Routes
- */
-Route::group(['prefix' => 'api'], function () {
-
-    Route::get('/user/search', array('uses' => 'API\V1\UserAPIController@search'));
-
-    Route::resources([
-        'user' => 'API\V1\UserAPIController'
-    ]);
-
-});
-
-/*
- *  Admin Routes
- */
-
-Route::group(array('prefix' => 'admin'), function () {
-    Route::any('login', array('as' => 'adminlogin', 'uses' => 'Admin\AuthAdminController@adminLogin'))->before('guest');
-
-    Route::group(array('before' => 'auth'), function () {
-        Route::any('/', array('as' => 'adminhome', 'uses' => 'Admin\UserAdminController@index'));
-
-        // Logout Route
-        Route::any('logout', array('as' => 'adminlogout', 'uses' => 'Admin\AuthAdminController@adminLogout'));
-
-    });
-});

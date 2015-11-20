@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * This class defines Eloquent methods
  */
 
-abstract class EloquentAbstract extends Model
+abstract class EloquentAbstract extends Model implements RepositoryInterface, RepositoryQueryInterface
 {
 
     protected $guarded = ['id'];
@@ -45,6 +45,18 @@ abstract class EloquentAbstract extends Model
     public function startQuery()
     {
         $this->query = $this->newQuery();
+
+        return $this;
+    }
+
+    /**
+     * Select Only Distinct Results
+     *
+     * @return $this
+     */
+    public function selectDistinct()
+    {
+        $this->query->distinct();
 
         return $this;
     }
@@ -358,9 +370,11 @@ abstract class EloquentAbstract extends Model
      */
     public function getFormattedCreatedAttribute()
     {
-        if ($this->offsetExists('created_at')) {
-            return date('m/d/Y g:i a', strtotime($this->getAttribute('created_at')));
+        if (!$this->offsetExists('created_at')) {
+            return false;
         }
+
+        return date('m/d/Y g:i a', strtotime($this->getAttribute('created_at')));
     }
 
     /**
@@ -370,8 +384,10 @@ abstract class EloquentAbstract extends Model
      */
     public function getFormattedModifiedAttribute()
     {
-        if ($this->offsetExists('updated_at')) {
-            return date('m/d/Y g:i a', strtotime($this->getAttribute('updated_at')));
+        if (!$this->offsetExists('updated_at')) {
+            return false;
         }
+
+        return date('m/d/Y g:i a', strtotime($this->getAttribute('updated_at')));
     }
 }

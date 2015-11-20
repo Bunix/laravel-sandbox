@@ -43,7 +43,7 @@ Route::group(['namespace' => 'Customer'], function () {
 
 Route::group(['namespace' => 'Admin', 'prefix' => config('route.prefix.admin'), 'middleware' => 'auth'], function () {
 
-    Route::get('/'.config('route.prefix.admin'), function () {
+    Route::get('/', function () {
         return view('admin.home');
     });
 
@@ -79,12 +79,12 @@ Route::group(['namespace' => 'Auth'], function () {
 |
 */
 
-Route::group(['namespace' => 'API', 'prefix' => 'api'], function () {
+Route::group(['namespace' => 'API\V1', 'prefix' => 'api'], function () {
 
-    Route::get('/user/search', array('uses' => 'V1\UserAPIController@search'));
+    Route::get('/user/search', array('uses' => 'UserController@search'));
 
     Route::resources([
-        'user' => 'V1\UserAPIController'
+        'user' => 'UserController'
     ]);
 
 });

@@ -3,18 +3,25 @@
 namespace App\Repositories\User;
 
 use App\Repositories\EloquentAbstract;
+use App\Repositories\RepositoryInterface;
+use App\Repositories\RepositoryQueryInterface;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 /*
  * This class is the Eloquent Implementation of the User Repository
  */
 
-class UsersEloquent extends EloquentAbstract implements UserRepositoryInterface, AuthenticatableContract, CanResetPasswordContract
+class UsersEloquent extends EloquentAbstract implements AuthenticatableContract,
+    AuthorizableContract,
+    CanResetPasswordContract,
+    UserRepositoryInterface
 {
-    use Authenticatable, CanResetPassword;
+    use Authenticatable, Authorizable, CanResetPassword;
 
     /**
      * The database table used by the model.
@@ -28,7 +35,7 @@ class UsersEloquent extends EloquentAbstract implements UserRepositoryInterface,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['first_name', 'last_name', 'email', 'password'];
 
     /**
      * The attributes excluded from the model's JSON form.

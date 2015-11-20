@@ -7,7 +7,7 @@ use App\Repositories\User\UsersEloquent;
 use App\Services\Support\Validator\User\APIValidator;
 
 
-class UserAPIController extends APIController
+class UserController extends APIController
 {
     protected $data_type = 'user';
 

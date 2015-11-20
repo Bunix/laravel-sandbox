@@ -24,6 +24,13 @@ interface RepositoryQueryInterface
     public function selectColumns(array $columns);
 
     /**
+     * Select Only Distinct Results
+     *
+     * @return mixed
+     */
+    public function selectDistinct();
+
+    /**
      * Add Where Clause to Query
      *
      * @param $field

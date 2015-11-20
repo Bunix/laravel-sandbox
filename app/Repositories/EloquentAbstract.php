@@ -21,7 +21,6 @@ abstract class EloquentAbstract extends Model implements RepositoryInterface, Re
      */
     protected $query;
 
-
     /**
      * Repository Abstract Constructor
      *
@@ -378,7 +377,7 @@ abstract class EloquentAbstract extends Model implements RepositoryInterface, Re
     }
 
     /**
-     * Get formatted updated_dat field.
+     * Get formatted updated_at field.
      *
      * @return bool|string
      */

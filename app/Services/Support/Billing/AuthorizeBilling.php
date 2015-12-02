@@ -2,7 +2,9 @@
 
 namespace App\Services\Support\Billing;
 
-class AuthorizeBilling implements BillingInterface
+use App\Services\Support\SupportServiceAbstract;
+
+class AuthorizeBilling extends BillingAbstract implements BillingInterface
 {
 
     /**

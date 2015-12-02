@@ -3,16 +3,16 @@
 namespace App\Services\Support\FileOrganizer;
 
 use App\Services\Support\Alert\AlertTrait;
-use App\Services\Support\Logger\LoggerTrait;
+use App\Services\Support\SupportServiceAbstract;
 
 /**
  *
  * Abstract class for File Organization
  *
  */
-abstract class FileOrganizerAbstract
+abstract class FileOrganizerAbstract extends SupportServiceAbstract
 {
-    use AlertTrait, LoggerTrait;
+    use AlertTrait;
 
     // Default Directories
     private $default_archive_dir = 'archive';

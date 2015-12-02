@@ -2,7 +2,7 @@
 
 namespace App\Services\Support\Billing;
 
-class BraintreeBilling implements BillingInterface
+class BraintreeBilling extends BillingAbstract implements BillingInterface
 {
 
     /**

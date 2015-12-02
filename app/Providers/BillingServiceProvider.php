@@ -34,7 +34,7 @@ class BillingServiceProvider extends ServiceProvider
         });
 
         // Choose Default Billing
-        $app->bind('App\Services\Support\Billing\BillingInterface', 'BraintreeBilling');
+        $app->bind('App\Services\Support\Billing\BillingInterface', 'StripeBilling');
 
     }
 

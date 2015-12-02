@@ -2,7 +2,7 @@
 
 namespace App\Services\Support\Billing;
 
-class StripeBilling implements BillingInterface
+class StripeBilling extends BillingAbstract implements BillingInterface
 {
 
     /**
@@ -12,6 +12,7 @@ class StripeBilling implements BillingInterface
      */
     public function display()
     {
+        $this->logInfo('Stripe Billing Used');
         return 'Stripe';
     }
 

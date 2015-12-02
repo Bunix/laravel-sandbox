@@ -3,19 +3,19 @@
 namespace App\Services\Support\DataImporter;
 
 use App\Services\Support\Alert\AlertTrait;
-use App\Services\Support\Logger\LoggerTrait;
+use App\Services\Support\SupportServiceAbstract;
 
 /**
  *
  * Abstract class for Data Importing.
  *
  */
-abstract class DataImporterAbstract
+abstract class DataImporterAbstract extends SupportServiceAbstract
 {
-    use AlertTrait, LoggerTrait;
+    use AlertTrait;
 
     // Service Settings
-    protected $service_type = 'support';
+
     protected $import_data_processed = 0; // Import Type data
     protected $is_created = true;
     protected $is_updated = true;
@@ -73,11 +73,6 @@ abstract class DataImporterAbstract
         foreach ($this->import_map as $api_field => $repo_field) {
             if (isset($data[$api_field])) {
                 $mapped_data[$repo_field] = $data[$api_field];
-
-//                if ($repo_field == 'name') {
-//                    $mapped_data[$repo_field] = 'NAME UPDATE';
-//                }
-
             } else {
                 $mapped_data[$repo_field] = null;
             }

@@ -5,7 +5,6 @@ namespace App\Services\Support\Logger;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-
 /**
  * Class MyLogger
  *

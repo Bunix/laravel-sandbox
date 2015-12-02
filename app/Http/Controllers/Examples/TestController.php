@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Examples;
 
+use App\Models\User\User;
 use App\Services\Support\Alert\Type\WebopsAlert as WebopsAlert;
 use App\Services\Support\Logger\MyLogger as MyLogger;
 use Illuminate\Routing\Controller;
@@ -65,6 +66,17 @@ class TestController extends Controller
         $logger->write('Test Warning Log', 'Test Controller', 0, 'warning');
         $logger->write('Test Error Log', 'Test Controller', 0, 'error');
         er('Logs Written');
+    }
+
+    /**
+     *  Test User Model
+     *
+     */
+    public function getModel(User $user_model)
+    {
+        $user = $user_model->find(1);
+
+        pr($user->created_at,1);
     }
 
 }

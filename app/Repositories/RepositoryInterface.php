@@ -10,38 +10,6 @@ namespace App\Repositories;
 interface RepositoryInterface
 {
     /**
-     * Find set of repo objects.
-     *
-     * @param null $sort_column
-     * @param null $sort_dir
-     * @param null $limit
-     * @param array $include
-     * @param null $query
-     *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public function findAll($sort_column, $sort_dir, $limit, $include, $query);
-
-    /**
-     * Get repo data by id.
-     *
-     * @param $id
-     * @param bool $fail
-     * @param array $include
-     * @return \Illuminate\Database\Eloquent\Collection|Model|\Illuminate\Support\Collection|null|static
-     */
-    public function findById($id, $fail = false, $include = []);
-
-    /**
-     * Find repo data by field.
-     *
-     * @param $field
-     * @param $value
-     * @return mixed
-     */
-    public function findByField($field, $value);
-
-    /**
      * Create row in repo
      *
      * @param $input
@@ -88,19 +56,5 @@ interface RepositoryInterface
      * @return mixed
      */
     public function getTotal();
-
-    /**
-     * Get formatted created_at field
-     *
-     * @return bool|string
-     */
-    public function getFormattedCreatedAttribute();
-
-    /**
-     * Get formatted updated_dat field.
-     *
-     * @return bool|string
-     */
-    public function getFormattedModifiedAttribute();
 
 }

@@ -12,7 +12,6 @@ class StripeBilling extends BillingAbstract implements BillingInterface
      */
     public function display()
     {
-        $this->logInfo('Stripe Billing Used');
         return 'Stripe';
     }
 

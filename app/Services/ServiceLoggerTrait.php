@@ -23,7 +23,7 @@ trait ServiceLoggerTrait
     protected function logInfo($message, $log_name = null)
     {
         try {
-            \Logger::write($message, $this->getServiceName(), $this->isSupportService(), 'info', $log_name);
+            \Logger::writeService($message, 'info', $log_name, $this->isSupportService(), $this->getServiceName());
         } catch (Exception $e) {
             $this->loggingError($e);
         }
@@ -41,14 +41,13 @@ trait ServiceLoggerTrait
     protected function logWarning($message, $log_name = null)
     {
         try {
-            \Logger::write($message, $this->getServiceName(), $this->isSupportService(), 'warning', $log_name);
+            \Logger::writeService($message, 'warning', $log_name, $this->isSupportService(), $this->getServiceName());
         } catch (Exception $e) {
             $this->loggingError($e);
         }
 
         return true;
     }
-
 
     /**
      * Write Error Log
@@ -60,7 +59,7 @@ trait ServiceLoggerTrait
     protected function logError($message, $log_name = null)
     {
         try {
-            \Logger::write($message, $this->getServiceName(), $this->isSupportService(), 'error', $log_name);
+            \Logger::writeService($message, 'error', $log_name, $this->isSupportService(), $this->getServiceName());
         } catch (Exception $e) {
             $this->loggingError($e);
         }
@@ -75,7 +74,7 @@ trait ServiceLoggerTrait
      */
     private function loggingError($error)
     {
-        \Logger::write('Logger Error:' . $error->getMessage(), 'logger', true, 'error');
+        \Logger::write('Logger Error:' . $error->getMessage(), 'info', storage_path() . '/logs/logger-errors.log');
     }
 
 }

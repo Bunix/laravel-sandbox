@@ -25,9 +25,10 @@ class UserController extends APIController
      */
     public function index(Request $request)
     {
-        $users = $this->model->findAll($request->input('sort_column') ?: 'created_at',
-            $request->input('sort_dir') ?: 'DESC',
-            $request->input('limit') ?: '100');
+        $users = $this->model
+            ->orderBy($request->input('sort_column') ?: 'created_at', $request->input('sort_dir') ?: 'DESC')
+            ->take( $request->input('limit') ?: '100')
+            ->get();
 
         return $this->outputResponse($users);
     }
@@ -40,7 +41,7 @@ class UserController extends APIController
      */
     public function show($id)
     {
-        $user = $this->model->findById($id);
+        $user = $this->model->find($id);
 
         if (!$user) {
             return $this->outputErrorResponse(['User Not Found With ID: ' . $id]);
@@ -88,7 +89,7 @@ class UserController extends APIController
             return $this->outputErrorResponse($errors->all());
         }
 
-        $user = $this->model->findById($id);
+        $user = $this->model->find($id);
         $user->update($input);
 
         return $this->outputResponse($user);

@@ -5,81 +5,104 @@
 | Application Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
+| This route group applies the "web" middleware group to every route
+| it contains. The "web" middleware group is defined in your HTTP
+| kernel and includes session state, CSRF protection, and more.
 |
 */
 
-/*
-|--------------------------------------------------------------------------
-| Customer Routes
-|--------------------------------------------------------------------------
-|
-| Routes for public users of application
-|
-*/
+Route::group(['middleware' => ['web']], function () {
 
-Route::group(['namespace' => 'Customer'], function () {
+    /*
+    |--------------------------------------------------------------------------
+    | Customer Routes
+    |--------------------------------------------------------------------------
+    |
+    | Routes for public users of application
+    |
+    */
 
-    Route::get('/', function () {
-        return view('welcome');
+    Route::group(['namespace' => 'Customer'], function () {
+
+        Route::get('/', function () {
+            return view('welcome');
+        });
+
+        Route::controllers([
+
+        ]);
     });
 
-    Route::controllers([
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Routes
+    |--------------------------------------------------------------------------
+    |
+    | Routes for internal admin users of application
+    |
+    */
 
-    ]);
-});
+    Route::group(['namespace' => 'Admin', 'prefix' => config('route.prefix.admin'), 'middleware' => 'auth'], function () {
 
+        Route::get('/', function () {
+            return view('admin.home');
+        });
 
-/*
-|--------------------------------------------------------------------------
-| Admin Routes
-|--------------------------------------------------------------------------
-|
-| Routes for internal admin users of application
-|
-*/
+        Route::controllers([
 
-Route::group(['namespace' => 'Admin', 'prefix' => config('route.prefix.admin'), 'middleware' => 'auth'], function () {
+        ]);
 
-    Route::get('/', function () {
-        return view('admin.home');
     });
 
-    Route::controllers([
+    /*
+    |--------------------------------------------------------------------------
+    | Auth Routes
+    |--------------------------------------------------------------------------
+    |
+    | Routes for authentication of application
+    |
+    */
 
-    ]);
+    Route::group(['namespace' => 'Auth'], function () {
+        Route::controllers([
+            'auth' => 'AuthController',
+            'password' => 'PasswordController'
+        ]);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Examples Routes
+    |--------------------------------------------------------------------------
+    |
+    | Routes for examples valid only in test environments
+    |
+    */
+
+    Route::group(['namespace' => 'Examples'], function () {
+
+        if (App::environment() != 'production') {
+            Route::controllers([
+                'api-test' => 'APITestController',
+                'billing' => 'BillingController',
+                'mailer' => 'MailerController',
+                'test' => 'TestController'
+            ]);
+        }
+    });
 
 });
-
-/*
-|--------------------------------------------------------------------------
-| Auth Routes
-|--------------------------------------------------------------------------
-|
-| Routes for authentication of application
-|
-*/
-
-Route::group(['namespace' => 'Auth'], function () {
-    Route::controllers([
-        'auth' => 'AuthController',
-        'password' => 'PasswordController'
-    ]);
-});
-
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
 |
-| Routes for api endpoints of application
+| Routes for api endpoints
 |
 */
 
-Route::group(['namespace' => 'API\V1', 'prefix' => 'api'], function () {
+Route::group(['middleware' => ['api'], 'namespace' => 'API\V1', 'prefix' => 'api'], function () {
 
     Route::get('/user/search', array('uses' => 'UserController@search'));
 
@@ -87,27 +110,6 @@ Route::group(['namespace' => 'API\V1', 'prefix' => 'api'], function () {
         'user' => 'UserController'
     ]);
 
-});
-
-/*
-|--------------------------------------------------------------------------
-| Examples Routes
-|--------------------------------------------------------------------------
-|
-| Routes for examples valid only in test environments
-|
-*/
-
-Route::group(['namespace' => 'Examples'], function () {
-
-    if (App::environment() != 'production') {
-        Route::controllers([
-            'api-test' => 'APITestController',
-            'billing' => 'BillingController',
-            'mailer' => 'MailerController',
-            'test' => 'TestController'
-        ]);
-    }
 });
 
 /*

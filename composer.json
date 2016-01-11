@@ -7,6 +7,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
+        "larablocks/pigeon": "5.1.*",
         "guzzlehttp/guzzle": "~6.0",
         "fzaninotto/faker": "~1.5"
     },
@@ -41,7 +42,7 @@
             "php artisan optimize"
         ],
         "pre-update-cmd": [
-
+            "php artisan clear-compiled"
         ],
         "post-update-cmd": [
             "php artisan optimize"

@@ -163,8 +163,6 @@ return [
         App\Providers\BillingServiceProvider::class,
         App\Providers\DataImporterServiceProvider::class,
         App\Providers\LoggerServiceProvider::class,
-        App\Providers\RepositoryServiceProvider::class,
-        App\Providers\ValidatorServiceProvider::class,
 
         /*
          * Package Service Providers

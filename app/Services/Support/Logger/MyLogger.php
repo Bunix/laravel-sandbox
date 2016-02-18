@@ -135,6 +135,55 @@ class MyLogger implements LoggerInterface
     }
 
     /**
+     * Log Command Message
+     *
+     * @param $message
+     * @param string $level
+     * @param string $log_name
+     * @param $command_name
+     * @return bool
+     */
+    public function writeCommand($message, $level = 'info', $log_name = 'general.log', $command_name)
+    {
+        if ($this->all_logs_enabled) {
+
+            $log_path = storage_path() . '/logs/commands/';
+
+            $this->makeDir($log_path);
+
+            // Format service name for logs
+            $command_name = strtolower(str_replace(' ', '_', $command_name));
+
+            // Add command name
+            $log_path .= $command_name . '/';
+            $this->makeDir($log_path);
+
+            // Add file name
+            if (!is_null($log_name)) {
+                $log_path .= $log_name;
+            } else {
+                switch ($level) {
+                    case 'info':
+                        $log_path .= $command_name . '-info.log';
+                        break;
+                    case 'warning':
+                        $log_path .= $command_name . '-warning.log';
+                        break;
+                    case 'error':
+                        $log_path .= $command_name . '-error.log';
+                        break;
+                    default:
+                        $log_path .= $command_name . '.log';
+                }
+            }
+
+            $this->write($message, $level, $log_path, $command_name);
+        }
+
+        return true;
+    }
+
+    /**
      * Make Dir
      *
      * @param $path

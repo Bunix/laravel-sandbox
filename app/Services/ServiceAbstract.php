@@ -11,6 +11,11 @@ abstract class ServiceAbstract
 {
     use ServiceLoggerTrait;
 
+    /**
+     * Service Type - (deliverable or support)
+     *
+     * @var string
+     */
     protected $service_type;
 
     /**

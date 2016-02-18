@@ -167,7 +167,7 @@ return [
         /*
          * Package Service Providers
          */
-        //Larablocks\Pigeon\PigeonServiceProvider::class,
+        Larablocks\Pigeon\PigeonServiceProvider::class,
 	],
 
 	/*
@@ -213,6 +213,9 @@ return [
 		'URL'       => Illuminate\Support\Facades\URL::class,
 		'Validator' => Illuminate\Support\Facades\Validator::class,
 		'View'      => Illuminate\Support\Facades\View::class,
+
+		// Package Aliases
+		'Pigeon' => Larablocks\Pigeon\Pigeon::class,
 
         // Custom Aliases
         'Logger' => App\Facades\LoggerFacade::class,

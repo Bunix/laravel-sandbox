@@ -4,7 +4,6 @@ namespace App\Services\Support\Alert;
 
 trait AlertTrait
 {
-
     /**
      * Webops Alert
      *

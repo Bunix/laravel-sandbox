@@ -1,4 +1,4 @@
-## Laravel Sandbox - Laravel v5.2.*
+## Laravel Sandbox - Laravel v5.2.30*
 
 The purpose of this sandbox is to give an even quicker starting point in setting up a new Laravel application.
 I have added several support services and example placeholders to help jump start development.

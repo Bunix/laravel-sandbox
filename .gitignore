@@ -2,6 +2,7 @@
 /vendor
 /node_modules
 /public/css/*
+/public/storage
 /public/assets/bower_components
 .env*
 composer.lock

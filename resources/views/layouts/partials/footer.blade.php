@@ -36,7 +36,7 @@
     </div>
 
     <!-- Google Analytics Partial -->
-    @if (App::environment() != 'development')
+    @if (App::environment() == 'production')
         @include('layouts.partials.googleanalytics')
     @endif
 </footer>

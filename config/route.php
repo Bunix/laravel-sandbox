@@ -17,6 +17,6 @@ return [
     */
 
     'prefix' => [
-        'admin' => env('ROUTE_PREFIX_ADMIN', 'admin'),
+        'admin' => env('ROUTE_PREFIX_ADMIN', 'admin')
     ]
 ];

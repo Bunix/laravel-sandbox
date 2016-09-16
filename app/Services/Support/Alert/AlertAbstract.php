@@ -115,31 +115,30 @@ abstract class AlertAbstract
     protected function emailAlert($message, $subject = null, $alert_level = null, $contacts = [])
     {
         // Check if email enabled
-        if ($this->email_enabled) {
-
-            $this->mailer->type('alert');
-
-            // Set Subject
-            if (!is_null($subject)) {
-                $this->mailer->subject($subject);
-            }
-
-            // Set Alert Level
-            if (!is_null($alert_level)) {
-                $alert_level = $this->alert_level;
-            }
-
-            // Set Contacts
-            if (!empty($contacts)) {
-               $this->mailer->to([$contacts]);
-            } else {
-                $this->mailer->to($this->alert_email);
-            }
-
-            return $this->mailer->pass(['alert_message' => $message, 'alert_level' => $alert_level])->send();
+        if (!$this->email_enabled) {
+            return true;
         }
 
-        return true;
+        $this->mailer->type('alert');
+
+        // Set Subject
+        if (!is_null($subject)) {
+            $this->mailer->subject($subject);
+        }
+
+        // Set Alert Level
+        if (!is_null($alert_level)) {
+            $alert_level = $this->alert_level;
+        }
+
+        // Set Contacts
+        if (!empty($contacts)) {
+            $this->mailer->to([$contacts]);
+        } else {
+            $this->mailer->to($this->alert_email);
+        }
+
+        return $this->mailer->pass(['alert_message' => $message, 'alert_level' => $alert_level])->send();
     }
 
     /**
@@ -152,11 +151,11 @@ abstract class AlertAbstract
     protected function textAlert($message, $subject = null)
     {
         // Check if text alert enabled
-        if ($this->text_enabled) {
-          return $this->sms_handler->send($this->alert_phone, $this->alert_provider, $message, $subject);
+        if (!$this->text_enabled) {
+            return true;
         }
 
-        return true;
+        return $this->sms_handler->send($this->alert_phone, $this->alert_provider, $message, $subject);
     }
 
 

@@ -25,7 +25,7 @@ class AuthLoginInfoUpdate
     public function handle($event)
     {
         Auth::user()->last_login = Carbon::now();
-        Auth::user()->last_login_ip = Request::getClientIp();
+        Auth::user()->last_login_ip = Request::ip();
         Auth::user()->save();
     }
 }

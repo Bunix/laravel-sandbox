@@ -58,6 +58,16 @@ class MyLogger implements LoggerInterface
     {
         if ($this->all_logs_enabled) {
 
+            // Turn array message into string
+            if (is_array($message)) {
+                $message = print_r($message, true);
+            }
+
+            // Turn object into string
+            if (is_object($message)) {
+                $message = print_r(get_object_vars($message), true);
+            }
+
             if (is_null($log_path)) {
                 $log_path = storage_path() . '/logs/general.log';
             }

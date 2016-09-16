@@ -13,11 +13,13 @@
 
 // User Factory
 $factory->define(App\Models\User\User::class, function (Faker\Generator $faker) {
+    static $password;
+
     return [
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'email' => $faker->safeEmail,
-        'password' => bcrypt(str_random(10)),
+        'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
     ];
 });

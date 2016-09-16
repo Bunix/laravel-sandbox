@@ -4,6 +4,6 @@
 /public/css/*
 /public/storage
 /public/assets/bower_components
-.env*
-composer.lock
-composer.phar
+.env
+Homestead.json
+Homestead.yaml

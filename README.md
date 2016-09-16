@@ -1,4 +1,4 @@
-## Laravel Sandbox - Laravel v5.2.30*
+## Laravel Sandbox - Laravel v5.3.*
 
 The purpose of this sandbox is to give an even quicker starting point in setting up a new Laravel application.
 I have added several support services and example placeholders to help jump start development.
@@ -8,10 +8,9 @@ app\Repositories - a quick starting point for a repository patterned model direc
 
 app\Services\Support - useful Support Services List
 
-Alert
-DataImporter
-FileOrganizer
-Logger
-Validator
+####Alert
+####DataImporter
+####FileOrganizer
+####Logger
 
 

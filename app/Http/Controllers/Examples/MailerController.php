@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Examples;
 
-use App\Services\Deliverable\SMS\SMSMessage;
 use Illuminate\Routing\Controller;
 use Larablocks\Pigeon\Pigeon;
+use Larablocks\Pigeon\PigeonInterface;
 
 class MailerController extends Controller
 {
@@ -18,22 +18,13 @@ class MailerController extends Controller
         $this->middleware('guest');
     }
 
-    public function getIndex()
+    public function index(PigeonInterface $mailer)
     {
         er('Start Mailer');
 
-        Pigeon::type('custom_message_type')->to('emitz13@gmail.com')->send();
+        $mailer->to('test@gmail.com')->send('Test Message');
 
         er('Mail Sent');
-    }
-
-    public function getSms(EmailSMSHandler $sms)
-    {
-        er('Start SMS');
-
-        $sms->send(new SMSMessage());
-
-        er('SMS Sent');
     }
 
 }

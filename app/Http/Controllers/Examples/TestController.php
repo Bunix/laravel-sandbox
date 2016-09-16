@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Examples;
 
-use App\Models\User\User;
 use App\Services\Support\Alert\Type\WebopsAlert as WebopsAlert;
 use App\Services\Support\Logger\MyLogger as MyLogger;
 use App\Services\Support\SMS\EmailSMSHandler;
 use Illuminate\Routing\Controller;
+//use Larablocks\Highway\Facade\Highway;
 
 class TestController extends Controller
 {
@@ -34,9 +34,8 @@ class TestController extends Controller
     /**
      * Show the application dashboard to the user.
      *
-     * @return Response
      */
-    public function getIndex()
+    public function index()
     {
         er('Test Controller');
     }
@@ -47,7 +46,7 @@ class TestController extends Controller
      * @param WebopsAlert $alert_service
      * @internal param WebopsAlert $alert
      */
-    public function getAlert(WebopsAlert $alert_service)
+    public function alert(WebopsAlert $alert_service)
     {
         er('Alert Started');
         $result = $alert_service->alert('Test Alert');
@@ -60,11 +59,11 @@ class TestController extends Controller
      *
      * @param MyLogger $logger
      */
-    public function getLogger(MyLogger $logger)
+    public function logger(MyLogger $logger)
     {
-        $logger->write('Test Info Log', 'Test Controller', 0);
-        $logger->write('Test Warning Log', 'Test Controller', 0, 'warning');
-        $logger->write('Test Error Log', 'Test Controller', 0, 'error');
+        $logger->write('Test Info Log');
+        $logger->write('Test Warning Log','warning');
+        $logger->write('Test Error Log','error');
         er('Logs Written');
     }
 
@@ -73,23 +72,24 @@ class TestController extends Controller
      *
      * @param EmailSMSHandler $text
      */
-    public function getText(EmailSMSHandler $text)
+    public function text(EmailSMSHandler $text)
     {
         er('Text Started');
-        $result = $text->send('9046109373', 'Verizon', 'Text to Eric');
+        $result = $text->send('555555555', 'Verizon', 'Text to Me');
         xr($result);
         er('Text Sent');
     }
 
     /**
-     *  Test User Model
+     *  Test Highway
      *
      */
-    public function getModel(User $user_model)
-    {
-        $user = $user_model->find(1);
-
-        pr($user->created_at,1);
-    }
+//    public function highway()
+//    {
+//        Highway::addReader('database', ['table' => 'users']);
+//        Highway::addWriter('csv', ['file_path' => public_path('csv/users.csv')]);
+//        Highway::addWriter('csv', ['file_path' => public_path('csv/users-table-delimited.csv'), 'delimiter' => "\t", 'enclosure' => "'"]);
+//        Highway::run();
+//    }
 
 }

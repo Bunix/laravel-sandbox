@@ -2,130 +2,59 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User\User;
-use App\Services\Support\Validator\User\APIValidator;
+use App\Transformers\UserTransformer;
 
-
+/**
+ * Class UserController
+ *
+ * @package App\Http\Controllers\API\V1
+ */
 class UserController extends APIController
 {
-    protected $data_type = 'user';
+    /**
+     * Resource Name
+     *
+     * @var string
+     */
+    protected $resource_name = 'User';
 
-    public function __construct(User $model, APIValidator $validator)
+    /**
+     * UserController constructor.
+     *
+     * @param User $model
+     * @param UserTransformer $transformer
+     */
+    public function __construct(User $model, UserTransformer $transformer)
     {
         $this->model = $model;
-        $this->validator = $validator;
-    }
+        $this->transformer = $transformer;
 
-    /**
-     * Display a listing of all the resource.
-     *
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function index(Request $request)
-    {
-        $users = $this->model
-            ->orderBy($request->input('sort_column') ?: 'created_at', $request->input('sort_dir') ?: 'DESC')
-            ->take( $request->input('limit') ?: '100')
-            ->get();
-
-        return $this->outputResponse($users);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function show($id)
-    {
-        $user = $this->model->find($id);
-
-        if (!$user) {
-            return $this->outputErrorResponse(['User Not Found With ID: ' . $id]);
-        }
-
-        return $this->outputResponse($user);
+        parent::__construct();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param CreateUserRequest $request
+     * @return \Dingo\Api\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        $input = array_except($request->all(), '_method');
-
-        if (!$this->validator->passes()) {
-            $errors = $this->validator->getErrors();
-
-            return $this->outputErrorResponse($errors->all());
-        }
-
-        $user = $this->model->create($input);
-
-        return $this->outputResponse($user);
+        return parent::storeResource($request);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  int $id
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param UpdateUserRequest $request
+     * @param $id
+     * @return \Dingo\Api\Http\Response|void
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        $input = array_except($request->all(), '_method');
-
-        if (!$this->validator->passes()) {
-
-            $errors = $this->validator->getErrors();
-
-            return $this->outputErrorResponse($errors->all());
-        }
-
-        $user = $this->model->find($id);
-        $user->update($input);
-
-        return $this->outputResponse($user);
+        return parent::updateResource($request, $id);
     }
-
-    /**
-     *  Delete resource.
-     *
-     * @param  int $id
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function destroy($id)
-    {
-        $count = $this->model->find($id)->delete();
-
-        return $this->outputResponse($count . ' Rows Deleted');
-    }
-
-
-    /**
-     *  Search resource.
-     *
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function search(Request $request)
-    {
-        $input = array_except($request->all(), '_method');
-
-        $users = $this->model->APIsearch($input);
-
-        if (!is_object($users)) {
-            return $this->outputErrorResponse($users);
-        }
-
-        return $this->outputResponse($users);
-    }
-
 }

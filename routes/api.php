@@ -11,11 +11,16 @@
 |
 */
 
-Route::group(['namespace' => 'API\V1', 'prefix' => 'v1'], function () {
+$api = app('Dingo\Api\Routing\Router');
 
-    Route::get('/user/search', array('uses' => 'UserController@search'));
+$api->version('v1', ['middleware' => ['auth:api', 'api.throttle'], 'limit' => 5, 'expires' => 1], function ($api) {
 
-    Route::resources([
-        'user' => 'UserController'
-    ]);
+    // Users Routes
+    $api->get('users', 'App\Http\Controllers\API\V1\UserController@index');
+    $api->get('users/paginate', 'App\Http\Controllers\API\V1\UserController@paginate');
+    $api->get('users/{id}', 'App\Http\Controllers\API\V1\UserController@show');
+    $api->post('users', 'App\Http\Controllers\API\V1\UserController@store');
+    $api->put('users/{id}', 'App\Http\Controllers\API\V1\UserController@update');
+    $api->delete('users/{id}', 'App\Http\Controllers\API\V1\UserController@destroy');
+
 });

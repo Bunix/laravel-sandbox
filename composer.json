@@ -9,7 +9,8 @@
         "laravel/framework": "5.3.*",
         "larablocks/pigeon": "~5.2",
         "guzzlehttp/guzzle": "~6.0",
-        "fzaninotto/faker": "~1.5"
+        "fzaninotto/faker": "~1.5",
+        "dingo/api": "1.0.*@dev"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",

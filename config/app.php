@@ -136,7 +136,7 @@ return [
 
 	'providers' => [
 
-		/*
+	    /*
        * Laravel Framework Service Providers...
        */
         Illuminate\Auth\AuthServiceProvider::class,
@@ -163,19 +163,20 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-        * Package Service Providers...
+        * Application Service Providers...
         */
-        Larablocks\Pigeon\PigeonServiceProvider::class,
-        //Larablocks\Highway\HighwayServiceProvider::class,
-
-        /*
-         * Application Service Providers...
-         */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+        * Package Service Providers...
+        */
+        Dingo\Api\Provider\LaravelServiceProvider::class,
+        Larablocks\Pigeon\PigeonServiceProvider::class,
+        //Larablocks\Highway\HighwayServiceProvider::class,
 
         /*
          * Custom Service Providers...

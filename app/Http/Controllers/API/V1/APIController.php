@@ -2,89 +2,143 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Dingo\Api\Http\FormRequest;
+use Dingo\Api\Routing\Helpers;
+use Illuminate\Support\Facades\Auth;
+use League\Fractal\TransformerAbstract;
 
+/**
+ * Class APIController
+ *
+ * @package App\Http\Controllers\API\V1
+ */
 class APIController extends Controller
 {
+    use Helpers;
 
+    /**
+     * API Authorized User Object
+     *
+     * @var
+     */
+    protected $user;
+
+    /**
+     * API Object Model
+     *
+     * @var
+     */
     protected $model;
-    protected $validator;
 
+    /**
+     * Transformer Object
+     *
+     * @var TransformerAbstract
+     */
+    protected $transformer;
+
+    /**
+     * Records per pagination page
+     *
+     * @var int
+     */
+    protected $record_per_page = 25;
+
+    /**
+     * APIController constructor.
+     */
     public function __construct()
     {
-//        // API Auth Filter
-//        Route::filter('apiauth', function($route, $request)
-//        {
-//            // Verify API key matches config
-//            if(Request::header('x-api-key') != Config::get('app.key')) {
-//                return Response::json(
-//                    array(
-//                        'error' => true,
-//                        'message' => 'Unauthorized Request'
-//                    ),
-//                    401
-//                );
-//            }
-//        });
-//
-//        // API Customer ID Exists Filter
-//        Route::filter('id_exists', function($route)
-//        {
-//
-//            $id = $route->getParameter('customers');
-//
-//            if(!isset($id) || $this->repository->findById($id) == false) {
-//
-//                return Response::json(
-//                    array(
-//                        'error' => true,
-//                        'errors' => array('Customer ID not found')
-//                    ),
-//                    200
-//                );
-//            }
-//        });
-//
-//
-//
-//        // Set Filters
-//        $this->beforeFilter('apiauth');
-//        $this->beforeFilter('id_exists', array('only' => array('show','update','destroy')));
-
+        $this->user = Auth::guard('api')->user();
     }
 
     /**
-     * Generate the JSON output for API response
+     * Display a listing of all the resource.
      *
-     * @param $data
-     * @return Response
      */
-    protected function outputResponse($data)
+    public function index()
     {
-        return response()->json(
-            [
-                'error' => false,
-                $this->data_type => $data
-            ], 200
-        );
+        return $this->response->collection($this->model->get(), $this->transformer);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return \Dingo\Api\Http\Response|void
+     */
+    public function show($id)
+    {
+        $item = $this->model->find($id);
+
+        if (!$item) {
+            return $this->response->errorNotFound($this->resource_name.' Not Found');
+        }
+
+        return $this->response->item($item, $this->transformer);
+    }
 
     /**
-     * Generate the JSON output for API response
+     * Store a newly created resource in storage.
      *
-     * @param $errors
-     * @return Response
+     * @param FormRequest $request
+     * @return \Dingo\Api\Http\Response
      */
-    protected function outputErrorResponse($errors)
+    protected function storeResource(FormRequest $request)
     {
-        return response()->json(
-            [
-                'error' => true,
-                'messages' => $errors
-            ], 200
-        );
+        $item = $this->model->create($request->all());
+
+        return $this->response->item($item, $this->transformer);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param FormRequest $request
+     * @param $id
+     * @return \Dingo\Api\Http\Response|void
+     */
+    protected function updateResource(FormRequest $request, $id)
+    {
+        $item = $this->model->find($id);
+
+        if (!$item) {
+            return $this->response->errorNotFound($this->resource_name.' Not Found');
+        }
+
+        $item->update($request->all());
+
+        return $this->response->item($item, $this->transformer);
+    }
+
+    /**
+     *  Delete resource.
+     *
+     * @param  int $id
+     * @return array|void
+     */
+    public function destroy($id)
+    {
+        $item = $this->model->find($id);
+
+        if (!$item) {
+            return $this->response->errorNotFound($this->resource_name.' Not Found');
+        }
+
+        $item->delete();
+
+        return ['deleted' => true, 'id' => $id];
+    }
+
+    /**
+     * Display a listing of all the resource paginated.
+     *
+     */
+    public function paginate()
+    {
+        $paginator = $this->model->paginate($this->record_per_page);
+
+        return $this->response->paginator($paginator, $this->transformer);
     }
 }

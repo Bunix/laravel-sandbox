@@ -51,7 +51,7 @@ class UserController extends APIController
      *
      * @param UpdateUserRequest $request
      * @param $id
-     * @return \Dingo\Api\Http\Response|void
+     * @return \Dingo\Api\Http\Response
      */
     public function update(UpdateUserRequest $request, $id)
     {

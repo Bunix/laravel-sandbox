@@ -1,7 +1,6 @@
 <?php namespace App\Transformers;
 
 use App\Models\User\User;
-use Carbon\Carbon;
 use League\Fractal\TransformerAbstract;
 
 /**
@@ -11,6 +10,8 @@ use League\Fractal\TransformerAbstract;
  */
 class UserTransformer extends TransformerAbstract
 {
+    use TransformerFormatter;
+
     /**
      * Transform Function
      *
@@ -24,8 +25,8 @@ class UserTransformer extends TransformerAbstract
             'email' => $object->email,
             'first_name' => $object->first_name,
             'last_name' => $object->last_name,
-            'created_at' => Carbon::parse($object->created_at)->format('F d, Y h:i:s a'),
-            'updated_at' => Carbon::parse($object->updated_at)->format('F d, Y h:i:s a')
+            'created_at' => $this->formatDateTime($object->created_at),
+            'updated_at' => $this->formatDateTime($object->updated_at)
         ];
     }
 

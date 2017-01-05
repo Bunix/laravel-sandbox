@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
-use Dingo\Api\Http\FormRequest;
+use App\Http\Requests\Request;
 use Dingo\Api\Routing\Helpers;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use League\Fractal\TransformerAbstract;
 
@@ -66,14 +67,14 @@ class APIController extends Controller
      * Display the specified resource.
      *
      * @param  int $id
-     * @return \Dingo\Api\Http\Response|void
+     * @return \Dingo\Api\Http\Response
      */
     public function show($id)
     {
-        $item = $this->model->find($id);
+        $item = $this->findRow($id);
 
         if (!$item) {
-            return $this->response->errorNotFound($this->resource_name.' Not Found');
+            return $this->response->errorNotFound($this->resource_name . ' Not Found');
         }
 
         return $this->response->item($item, $this->transformer);
@@ -82,12 +83,21 @@ class APIController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param FormRequest $request
+     * @param Request $request
+     * @param array $added_inputs
      * @return \Dingo\Api\Http\Response
      */
-    protected function storeResource(FormRequest $request)
+    protected function storeResource(Request $request, $added_inputs = [])
     {
-        $item = $this->model->create($request->all());
+        $input = $request->getConvertedInput();
+
+        $input = array_merge($input, $added_inputs);
+
+        try {
+            $item = $this->model->create($input);
+        } catch(QueryException $e) {
+            return $this->response->errorBadRequest('Invalid Create Field in Request');
+        }
 
         return $this->response->item($item, $this->transformer);
     }
@@ -95,19 +105,28 @@ class APIController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param FormRequest $request
+     * @param Request $request
      * @param $id
-     * @return \Dingo\Api\Http\Response|void
+     * @param array $added_inputs
+     * @return \Dingo\Api\Http\Response
      */
-    protected function updateResource(FormRequest $request, $id)
+    protected function updateResource(Request $request, $id, $added_inputs = [])
     {
-        $item = $this->model->find($id);
+        $item = $this->findRow($id);
 
         if (!$item) {
-            return $this->response->errorNotFound($this->resource_name.' Not Found');
+            return $this->response->errorNotFound($this->resource_name . ' Not Found');
         }
 
-        $item->update($request->all());
+        $input = $request->getConvertedInput();
+
+        $input = array_merge($input, $added_inputs);
+
+        try {
+            $item->update($input);
+        } catch(QueryException $e) {
+            return $this->response->errorBadRequest('Invalid Update Field in Request');
+        }
 
         return $this->response->item($item, $this->transformer);
     }
@@ -116,14 +135,14 @@ class APIController extends Controller
      *  Delete resource.
      *
      * @param  int $id
-     * @return array|void
+     * @return array
      */
     public function destroy($id)
     {
-        $item = $this->model->find($id);
+        $item = $this->findRow($id);
 
         if (!$item) {
-            return $this->response->errorNotFound($this->resource_name.' Not Found');
+            return $this->response->errorNotFound($this->resource_name . ' Not Found');
         }
 
         $item->delete();
@@ -140,5 +159,16 @@ class APIController extends Controller
         $paginator = $this->model->paginate($this->record_per_page);
 
         return $this->response->paginator($paginator, $this->transformer);
+    }
+
+    /**
+     * Find Data Row by ID
+     *
+     * @param $id
+     * @return mixed
+     */
+    protected function findRow($id)
+    {
+        return $this->model->find($id);
     }
 }

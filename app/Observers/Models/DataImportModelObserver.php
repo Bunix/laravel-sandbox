@@ -59,7 +59,7 @@ class DataImportModelObserver
     {
         if ($this->print_enabled) {
             if ($model->getAttribute('id')) {
-                xr('ID#: ' . $model->getAttribute('id'));
+                pr('ID#: ' . $model->getAttribute('id'));
             }
         }
     }

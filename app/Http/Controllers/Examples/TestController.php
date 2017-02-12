@@ -50,7 +50,7 @@ class TestController extends Controller
     {
         er('Alert Started');
         $result = $alert_service->alert('Test Alert');
-        xr($result);
+        pr($result);
         er('Alert Sent');
     }
 
@@ -76,7 +76,7 @@ class TestController extends Controller
     {
         er('Text Started');
         $result = $text->send('555555555', 'Verizon', 'Text to Me');
-        xr($result);
+        pr($result);
         er('Text Sent');
     }
 

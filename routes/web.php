@@ -54,14 +54,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => config('route.prefix.admin'), 
 */
 
 Route::group(['namespace' => 'Auth'], function () {
-    Route::get('register', 'RegisterController@showRegistrationForm');
+    Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
     Route::post('register', 'RegisterController@register');
-    Route::get('login', 'LoginController@showLoginForm');
+    Route::get('login', 'LoginController@showLoginForm')->name('login');
     Route::post('login', 'LoginController@login');
-    Route::get('logout', 'LoginController@logout');
-    Route::get('password/email', 'ForgotPasswordController@showLinkRequestForm');
+    Route::get('logout', 'LoginController@logout')->name('logout');
+    Route::get('password/email', 'ForgotPasswordController@showLinkRequestForm')->name('password.email');
     Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
-    Route::get('password/reset', 'ResetPasswordController@showResetForm');
+    Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
     Route::post('password/reset', 'ResetPasswordController@reset');
 });
 

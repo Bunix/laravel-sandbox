@@ -3,6 +3,7 @@
 /node_modules
 /public/css/*
 /public/storage
+/public/hot
 /storage/*.key
 /public/assets/bower_components
 .env

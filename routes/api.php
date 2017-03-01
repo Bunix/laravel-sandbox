@@ -14,7 +14,7 @@
 $api = app('Dingo\Api\Routing\Router');
 
 
-$api->version('v1', ['middleware' => ['auth:api', /*'api.throttle'*/], /*'limit' => 5, 'expires' => 1*/], function ($api) {
+$api->version('v1', ['middleware' => [/*'auth:api', /'api.throttle'*/], /*'limit' => 5, 'expires' => 1*/], function ($api) {
 
     // Users Routes
     $api->get('users', 'App\Http\Controllers\API\V1\UserController@index');

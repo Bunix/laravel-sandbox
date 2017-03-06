@@ -66,11 +66,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | A default domain to use for your API routes so you don't have to
-    | specify it for each group.
+    | specify it for each group. ** This puts the whole domain under json encoded returns. Just define prefix for limited API portion of the site ***
     |
     */
 
-    'domain' => env('API_DOMAIN', 'laravel.app/api'),
+    'domain' => env('API_DOMAIN', ''),
 
     /*
     |--------------------------------------------------------------------------

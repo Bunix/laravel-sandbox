@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'domain' => env('API_DOMAIN', 'laravel.app'),
+    'domain' => env('API_DOMAIN', 'laravel.app/api'),
 
     /*
     |--------------------------------------------------------------------------
